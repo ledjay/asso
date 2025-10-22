@@ -1,0 +1,19 @@
+{
+  "name": "@repo/types",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./member": "./src/member.ts",
+    "./email": "./src/email.ts",
+    "./template": "./src/template.ts",
+    "./common": "./src/common.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@biomejs/biome": "^2.2.0"
+  }
+}

@@ -1,0 +1,645 @@
+openapi: 3.0.0
+info:
+  title: AssociationHub MVP API
+  description: REST API for AssociationHub member management and email communication platform
+  version: 1.0.0
+  contact:
+    name: AssociationHub
+    url: https://github.com/associationhub/associationhub
+
+servers:
+  - url: http://localhost:3000/api
+    description: Local development
+  - url: https://your-deployment.vercel.app/api
+    description: Production
+
+tags:
+  - name: Auth
+    description: Authentication endpoints
+  - name: Members
+    description: Member management endpoints
+  - name: Emails
+    description: Email sending endpoints
+  - name: Templates
+    description: Template selection endpoints
+  - name: Upload
+    description: File upload endpoints
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: User login
+      description: Authenticate user with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: admin@example.com
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: password123
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: User logout
+      description: End user session
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+
+  /templates/select:
+    post:
+      tags:
+        - Templates
+      summary: Select association template
+      description: Select template on first login (parents, sports, cultural)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - template
+              properties:
+                template:
+                  type: string
+                  enum: [parents, sports, cultural]
+                  example: parents
+      responses:
+        '200':
+          description: Template selected and database seeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  template:
+                    type: string
+                    example: parents
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+                  groups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GroupType'
+        '400':
+          description: Invalid template
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /members:
+    get:
+      tags:
+        - Members
+      summary: List members
+      description: Get paginated list of members with optional filtering
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            minimum: 1
+            maximum: 100
+        - name: roleId
+          in: query
+          description: Filter by role ID
+          schema:
+            type: string
+        - name: groupId
+          in: query
+          description: Filter by group ID
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search by name or email
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of members
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+    
+    post:
+      tags:
+        - Members
+      summary: Create member
+      description: Create a new member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberInput'
+      responses:
+        '201':
+          description: Member created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /members/{id}:
+    get:
+      tags:
+        - Members
+      summary: Get member
+      description: Get member by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Member details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    put:
+      tags:
+        - Members
+      summary: Update member
+      description: Update member by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberInput'
+      responses:
+        '200':
+          description: Member updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    delete:
+      tags:
+        - Members
+      summary: Delete member
+      description: Delete member by ID (hard delete for MVP)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Member deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /members/import:
+    post:
+      tags:
+        - Members
+      summary: Import members from CSV
+      description: Bulk import members from CSV file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: CSV file with columns name,email,role,group
+      responses:
+        '200':
+          description: Import completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    example: 45
+                  failed:
+                    type: integer
+                    example: 5
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        row:
+                          type: integer
+                        error:
+                          type: string
+        '400':
+          description: Invalid CSV format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /members/export:
+    get:
+      tags:
+        - Members
+      summary: Export members to CSV
+      description: Download all members as CSV file
+      responses:
+        '200':
+          description: CSV file
+          content:
+            text/csv:
+              schema:
+                type: string
+                example: |
+                  name,email,role,group
+                  Jean Dupont,jean@example.com,delegue_titulaire,6e1
+
+  /emails/send:
+    post:
+      tags:
+        - Emails
+      summary: Send email campaign
+      description: Send email to filtered members with optional attachment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - subject
+                - body
+              properties:
+                subject:
+                  type: string
+                  example: Réunion importante
+                body:
+                  type: string
+                  example: Bonjour {Nom}, vous êtes invité à la réunion.
+                attachmentUrl:
+                  type: string
+                  format: uri
+                  example: https://blob.vercel-storage.com/file.pdf
+                roleId:
+                  type: string
+                  description: Filter recipients by role
+                groupId:
+                  type: string
+                  description: Filter recipients by group
+      responses:
+        '200':
+          description: Email sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  recipientCount:
+                    type: integer
+                    example: 45
+                  campaignId:
+                    type: string
+                    example: clxyz123
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /emails/history:
+    get:
+      tags:
+        - Emails
+      summary: Get email history
+      description: Get paginated list of sent emails
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Email history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  campaigns:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EmailCampaign'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+  /upload:
+    post:
+      tags:
+        - Upload
+      summary: Upload PDF attachment
+      description: Upload PDF file (max 5MB) to Vercel Blob
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF file (max 5MB)
+      responses:
+        '200':
+          description: File uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    example: https://blob.vercel-storage.com/file-abc123.pdf
+        '400':
+          description: Invalid file (not PDF or too large)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clxyz123
+        email:
+          type: string
+          format: email
+          example: admin@example.com
+        name:
+          type: string
+          example: Jean Dupont
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-10-22T10:00:00Z
+
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clxyz123
+        name:
+          type: string
+          example: delegue_titulaire
+        displayName:
+          type: string
+          example: Délégué titulaire
+        sortOrder:
+          type: integer
+          example: 1
+
+    GroupType:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clxyz123
+        name:
+          type: string
+          example: 6e1
+        category:
+          type: string
+          example: classe
+
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clxyz123
+        name:
+          type: string
+          example: Jean Dupont
+        email:
+          type: string
+          format: email
+          example: jean.dupont@example.com
+        role:
+          $ref: '#/components/schemas/Role'
+        group:
+          $ref: '#/components/schemas/GroupType'
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-10-22T10:00:00Z
+
+    MemberInput:
+      type: object
+      required:
+        - name
+        - email
+        - roleId
+        - groupId
+      properties:
+        name:
+          type: string
+          example: Jean Dupont
+        email:
+          type: string
+          format: email
+          example: jean.dupont@example.com
+        roleId:
+          type: string
+          example: clxyz123
+        groupId:
+          type: string
+          example: clxyz123
+
+    EmailCampaign:
+      type: object
+      properties:
+        id:
+          type: string
+          example: clxyz123
+        subject:
+          type: string
+          example: Réunion importante
+        bodyTemplate:
+          type: string
+          example: Bonjour {Nom}, vous êtes invité.
+        attachmentUrl:
+          type: string
+          format: uri
+          nullable: true
+          example: https://blob.vercel-storage.com/file.pdf
+        recipientCount:
+          type: integer
+          example: 45
+        sentAt:
+          type: string
+          format: date-time
+          example: 2025-10-22T10:00:00Z
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 50
+        total:
+          type: integer
+          example: 200
+        totalPages:
+          type: integer
+          example: 4
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid credentials
+        details:
+          type: object
+          nullable: true
+
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: next-auth.session-token
+      description: NextAuth session cookie
+
+security:
+  - sessionAuth: []

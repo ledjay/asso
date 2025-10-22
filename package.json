@@ -1,0 +1,29 @@
+{
+  "name": "association-hub",
+  "version": "1.0.0",
+  "description": "Member management and email communication platform for associations",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter web test:e2e",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "storybook": "pnpm --filter ui storybook",
+    "db:start": "docker compose up -d",
+    "db:stop": "docker compose down",
+    "db:reset": "docker compose down -v && docker compose up -d",
+    "db:setup": "pnpm db:start && sleep 3 && pnpm --filter database prisma:generate && pnpm --filter database prisma:migrate && pnpm --filter database prisma:seed",
+    "db:studio": "pnpm --filter database prisma:studio",
+    "setup": "pnpm install && cp .env.example .env && cp .env.example packages/database/.env && pnpm db:setup"
+  },
+  "keywords": ["association", "member-management", "email", "communication"],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.6.4",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

@@ -1,0 +1,95 @@
+// Prisma schema for AssociationHub MVP
+// Single-tenant architecture (one association per deployment)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User: Single admin user for MVP (single-tenant)
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  password       String          // bcrypt hashed
+  name           String
+  createdAt      DateTime        @default(now())
+  emailCampaigns EmailCampaign[]
+
+  @@index([email])
+}
+
+// Role: Dynamic roles stored in database (not enum)
+// Enables different association types (parents, sports, cultural)
+model Role {
+  id          String   @id @default(cuid())
+  name        String   @unique // e.g., "delegue_titulaire", "entraineur"
+  displayName String   // e.g., "Délégué titulaire", "Entraîneur"
+  sortOrder   Int      // Display order in UI
+  members     Member[]
+
+  @@index([name])
+}
+
+// GroupType: Dynamic groups stored in database
+// Enables classes, teams, sections depending on association type
+model GroupType {
+  id       String   @id @default(cuid())
+  name     String   @unique // e.g., "6e1", "poussins", "debutant"
+  category String   // e.g., "classe", "equipe", "section"
+  members  Member[]
+
+  @@index([name])
+  @@index([category])
+}
+
+// Member: Individual belonging to the association
+model Member {
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
+  roleId    String
+  role      Role      @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  groupId   String
+  group     GroupType @relation(fields: [groupId], references: [id], onDelete: Restrict)
+  createdAt DateTime  @default(now())
+
+  @@index([email])
+  @@index([roleId])
+  @@index([groupId])
+}
+
+// EmailCampaign: Record of a mass email sent
+model EmailCampaign {
+  id             String   @id @default(cuid())
+  subject        String
+  bodyTemplate   String   @db.Text // Email body with template tags
+  attachmentUrl  String?  // URL to PDF attachment (Vercel Blob)
+  recipientCount Int      // Number of recipients
+  sentAt         DateTime @default(now())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([sentAt])
+}
+
+// SMTPConfiguration: SMTP credentials for email sending
+// Stored in database with encryption for BYO SMTP model
+model SMTPConfiguration {
+  id        String   @id @default(cuid())
+  host      String   // SMTP server host (e.g., smtp.gmail.com)
+  port      Int      // SMTP port (e.g., 587)
+  user      String   // SMTP username/email
+  password  String   // Encrypted password (AES-256-GCM)
+  fromEmail String   // From email address
+  fromName  String   // From name
+  userId    String   @unique // One SMTP config per user (single-tenant)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}

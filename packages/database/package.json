@@ -1,0 +1,35 @@
+{
+  "name": "@repo/database",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./client": "./src/client.ts",
+    "./queries/*": "./src/queries/*.ts",
+    "./import": "./src/import.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "tsx prisma/seed.ts",
+    "db:push": "prisma db push",
+    "db:reset": "prisma migrate reset"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.3.0",
+    "typescript": "^5",
+    "@biomejs/biome": "^2.2.0",
+    "tsx": "^4.19.2",
+    "zod": "^3.24.1",
+    "papaparse": "^5.4.1",
+    "@types/papaparse": "^5.3.15",
+    "bcryptjs": "^2.4.3",
+    "@types/bcryptjs": "^2.4.6"
+  }
+}

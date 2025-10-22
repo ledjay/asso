@@ -1,50 +1,71 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# SaaS Monorepo Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Package-First Architecture
+Every feature starts as a workspace package in the monorepo. Packages must be:
+- Self-contained with clear boundaries
+- Independently testable with their own test suite
+- Documented with README and TypeScript types
+- Reusable across apps (web, mobile, admin)
+- No circular dependencies between packages
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Type Safety First
+TypeScript strict mode enforced across all packages and apps:
+- No `any` types without explicit justification
+- Prisma schema as single source of truth for data models
+- Shared types package for cross-package contracts
+- Zod schemas for runtime validation at API boundaries
+- Type-safe API routes using tRPC or similar
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Database-First Design (NON-NEGOTIABLE)
+All data changes start with Prisma schema:
+- Schema changes → Migration generated → Review → Apply
+- No direct SQL without migration
+- Seed data for development and testing
+- Database transactions for multi-step operations
+- Soft deletes for user data (GDPR compliance)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Component-Driven UI
+UI components follow atomic design principles:
+- Shared component library using shadcn/ui + Tailwind
+- Components are server-first (React Server Components)
+- Client components explicitly marked with 'use client'
+- Storybook for component documentation and testing
+- Responsive by default (mobile-first approach)
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. API & Authentication Standards
+- Next.js API routes or tRPC for type-safe APIs
+- NextAuth.js for authentication (OAuth + credentials)
+- Row-level security considerations in Prisma queries
+- Rate limiting on public endpoints
+- API versioning when breaking changes needed
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Performance & Optimization
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Server-side rendering (SSR) for SEO-critical pages
+- Static generation (SSG) where possible
+- Image optimization using next/image
+- Code splitting and lazy loading for client bundles
+- Database query optimization (indexes, N+1 prevention)
+- Edge caching for static assets and API responses
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- Feature branches from main
+- PR requires: passing tests, type checks, linting
+- Database migrations reviewed separately before merge
+- Environment variables documented in .env.example
+- Vercel preview deployments for every PR
+- Staging environment mirrors production setup
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices:
+- All PRs must comply with these principles
+- Exceptions require explicit justification and team approval
+- Breaking changes require migration guide
+- New packages require architecture review
+- Security vulnerabilities take priority over features
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-10-22 | **Last Amended**: 2025-10-22
