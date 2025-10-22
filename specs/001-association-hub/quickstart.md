@@ -1,422 +1,219 @@
-# Quickstart: AssociationHub MVP Development
+# 🚀 Quick Start Guide
 
-**Date**: 2025-10-22  
-**Purpose**: Get developers up and running quickly
+Get AssociationHub running locally in **5 minutes**!
 
 ## Prerequisites
 
-- **Node.js**: 20.x LTS or higher
-- **pnpm**: 8.x or higher (`npm install -g pnpm`)
-- **PostgreSQL**: 15.x or higher (or use Vercel Postgres)
-- **Git**: For version control
+- **Node.js** 20+ ([Download](https://nodejs.org/))
+- **pnpm** 8+ (`npm install -g pnpm`)
+- **Docker** ([Download](https://www.docker.com/products/docker-desktop))
 
-## Quick Setup (5 minutes)
-
-### 1. Clone and Install
+## One-Command Setup
 
 ```bash
-# Clone repository
-git clone https://github.com/your-org/association-hub.git
-cd association-hub
+pnpm setup
+```
 
-# Install dependencies
+This will:
+1. ✅ Install all dependencies
+2. ✅ Copy environment variables
+3. ✅ Start PostgreSQL with Docker
+4. ✅ Run database migrations
+5. ✅ Seed with sample data
+
+## Manual Setup (If Needed)
+
+### 1. Install Dependencies
+
+```bash
 pnpm install
 ```
 
-### 2. Environment Setup
+### 2. Set Up Environment Variables
 
 ```bash
-# Copy environment template
+# Copy example env file
 cp .env.example .env
+cp .env.example packages/database/.env
 
-# Edit .env with your values
-nano .env
+# Edit .env if needed (default values work for local development)
 ```
 
-**Required environment variables**:
+### 3. Start PostgreSQL
 
 ```bash
-# Database
-DATABASE_URL="postgresql://user:password@localhost:5432/associationhub"
+# Start database
+pnpm db:start
 
-# NextAuth
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="generate-with-openssl-rand-base64-32"
-
-# SMTP (use Gmail for testing)
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USER="your-email@gmail.com"
-SMTP_PASS="your-app-password"
-SMTP_FROM="Association <noreply@example.com>"
-
-# Vercel Blob (optional for local dev)
-BLOB_READ_WRITE_TOKEN="your-token-here"
+# Check it's running
+docker ps
 ```
 
-### 3. Database Setup
+### 4. Set Up Database
 
 ```bash
-# Generate Prisma client
-pnpm --filter database prisma generate
+# Generate Prisma Client
+pnpm --filter database prisma:generate
 
 # Run migrations
-pnpm --filter database prisma migrate dev
+pnpm --filter database prisma:migrate
 
-# Seed database (optional - will be done on first login)
-pnpm --filter database prisma db seed
+# Seed with sample data (Parents template by default)
+pnpm --filter database prisma:seed
+
+# Or seed with Sports template
+SEED_TEMPLATE=sports pnpm --filter database prisma:seed
+
+# Or seed with Cultural template
+SEED_TEMPLATE=cultural pnpm --filter database prisma:seed
 ```
 
-### 4. Start Development Server
+### 5. Start Development Server
+
+```bash
+pnpm dev
+```
+
+Visit **http://localhost:3000** 🎉
+
+## Useful Commands
+
+### Development
 
 ```bash
 # Start Next.js dev server
 pnpm dev
 
-# Open http://localhost:3000
-```
-
-### 5. Start Storybook (Optional)
-
-```bash
-# In a separate terminal
+# Start Storybook (component library)
 pnpm storybook
 
-# Open http://localhost:6006
+# Type check all packages
+pnpm typecheck
+
+# Lint all packages
+pnpm lint
+
+# Run tests
+pnpm test
 ```
 
----
+### Database
+
+```bash
+# Start database
+pnpm db:start
+
+# Stop database
+pnpm db:stop
+
+# Reset database (delete all data)
+pnpm db:reset
+
+# Open Prisma Studio (database GUI)
+pnpm db:studio
+
+# Seed database with different templates
+SEED_TEMPLATE=parents pnpm --filter database prisma:seed
+SEED_TEMPLATE=sports pnpm --filter database prisma:seed
+SEED_TEMPLATE=cultural pnpm --filter database prisma:seed
+```
+
+### Prisma
+
+```bash
+# Generate Prisma Client (after schema changes)
+pnpm --filter database prisma:generate
+
+# Create a new migration
+pnpm --filter database prisma:migrate
+
+# View database in browser
+pnpm --filter database prisma:studio
+```
+
+## Default Credentials
+
+After seeding, you can log in with:
+
+- **Email**: `admin@example.com`
+- **Password**: `password123`
 
 ## Project Structure
 
 ```
 association-hub/
 ├── apps/
-│   └── web/                  # Next.js application
-│       ├── app/              # App Router pages
-│       ├── public/           # Static assets
-│       └── tests/            # E2E tests
-│
+│   └── web/              # Next.js application
 ├── packages/
-│   ├── ui/                   # Component library
-│   ├── database/             # Prisma + DB logic
-│   ├── email/                # Email sending
-│   ├── auth/                 # NextAuth config
-│   └── types/                # Shared types
-│
-├── docs/                     # Documentation
-├── pnpm-workspace.yaml       # pnpm config
-└── package.json              # Root package.json
+│   ├── ui/              # Component library (shadcn/ui)
+│   ├── database/        # Prisma + database logic
+│   ├── email/           # Email sending (Nodemailer)
+│   ├── auth/            # Authentication (NextAuth)
+│   └── types/           # Shared TypeScript types
+├── docker-compose.yml   # PostgreSQL setup
+└── .env.example         # Environment variables template
 ```
-
----
-
-## Common Commands
-
-### Development
-
-```bash
-# Start dev server
-pnpm dev
-
-# Start Storybook
-pnpm storybook
-
-# Run tests
-pnpm test
-
-# Run E2E tests
-pnpm test:e2e
-
-# Type check
-pnpm typecheck
-
-# Lint
-pnpm lint
-```
-
-### Database
-
-```bash
-# Generate Prisma client
-pnpm --filter database prisma generate
-
-# Create migration
-pnpm --filter database prisma migrate dev --name your-migration-name
-
-# Apply migrations
-pnpm --filter database prisma migrate deploy
-
-# Seed database
-pnpm --filter database prisma db seed
-
-# Open Prisma Studio
-pnpm --filter database prisma studio
-```
-
-### Build
-
-```bash
-# Build all packages
-pnpm build
-
-# Build specific package
-pnpm --filter web build
-pnpm --filter ui build
-```
-
----
-
-## Development Workflow
-
-### 1. Create Feature Branch
-
-```bash
-git checkout -b feature/your-feature-name
-```
-
-### 2. Make Changes
-
-- Edit code in relevant package
-- Add tests for new functionality
-- Update Storybook stories for UI changes
-- Update documentation if needed
-
-### 3. Run Checks
-
-```bash
-# Type check
-pnpm typecheck
-
-# Lint
-pnpm lint
-
-# Test
-pnpm test
-
-# E2E test
-pnpm test:e2e
-```
-
-### 4. Commit and Push
-
-```bash
-git add .
-git commit -m "feat: your feature description"
-git push origin feature/your-feature-name
-```
-
-### 5. Create Pull Request
-
-- Open PR on GitHub
-- Ensure CI passes
-- Request review
-- Merge when approved
-
----
-
-## Testing
-
-### Unit Tests (Vitest)
-
-```bash
-# Run all unit tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run tests with coverage
-pnpm test:coverage
-
-# Run tests for specific package
-pnpm --filter email test
-```
-
-### E2E Tests (Playwright)
-
-```bash
-# Run E2E tests
-pnpm test:e2e
-
-# Run E2E tests in UI mode
-pnpm test:e2e:ui
-
-# Run specific test file
-pnpm test:e2e tests/e2e/email-flow.spec.ts
-```
-
-### Component Tests (Storybook)
-
-```bash
-# Start Storybook
-pnpm storybook
-
-# Run interaction tests
-pnpm test-storybook
-```
-
----
-
-## Debugging
-
-### Next.js Debugging
-
-1. Add `debugger` statement in code
-2. Run `pnpm dev`
-3. Open Chrome DevTools
-4. Set breakpoints in Sources tab
-
-### Database Debugging
-
-```bash
-# Open Prisma Studio
-pnpm --filter database prisma studio
-
-# View database in browser
-# http://localhost:5555
-```
-
-### Email Debugging
-
-Use [Ethereal Email](https://ethereal.email/) for testing:
-
-```bash
-# Get test SMTP credentials
-# https://ethereal.email/create
-
-# Update .env with Ethereal credentials
-SMTP_HOST="smtp.ethereal.email"
-SMTP_PORT="587"
-SMTP_USER="your-ethereal-user"
-SMTP_PASS="your-ethereal-pass"
-```
-
----
-
-## Deployment
-
-### Vercel (Recommended)
-
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Login
-vercel login
-
-# Deploy
-vercel
-
-# Deploy to production
-vercel --prod
-```
-
-### Railway
-
-```bash
-# Install Railway CLI
-npm install -g @railway/cli
-
-# Login
-railway login
-
-# Initialize project
-railway init
-
-# Deploy
-railway up
-```
-
-### Docker
-
-```bash
-# Build image
-docker build -t association-hub .
-
-# Run container
-docker run -p 3000:3000 --env-file .env association-hub
-```
-
----
 
 ## Troubleshooting
 
-### Port Already in Use
+### Port 5432 Already in Use
 
 ```bash
-# Kill process on port 3000
-lsof -ti:3000 | xargs kill -9
+# Stop existing PostgreSQL
+brew services stop postgresql
 
-# Or use different port
-PORT=3001 pnpm dev
+# Or use different port in docker-compose.yml
+ports:
+  - "5433:5432"  # Change to 5433
+
+# Update DATABASE_URL
+DATABASE_URL="postgresql://postgres:postgres@localhost:5433/associationhub"
 ```
 
 ### Database Connection Error
 
 ```bash
-# Check PostgreSQL is running
-pg_isready
+# Check Docker is running
+docker ps
 
-# Check DATABASE_URL in .env
-echo $DATABASE_URL
+# Restart database
+pnpm db:stop
+pnpm db:start
 
-# Reset database
-pnpm --filter database prisma migrate reset
+# Wait a few seconds and try again
 ```
 
-### Prisma Client Out of Sync
+### Prisma Client Not Generated
 
 ```bash
-# Regenerate Prisma client
-pnpm --filter database prisma generate
+# Generate Prisma Client
+pnpm --filter database prisma:generate
 
-# Restart dev server
-pnpm dev
+# Run typecheck again
+pnpm typecheck
 ```
 
-### pnpm Install Fails
+### Clean Start
 
 ```bash
-# Clear pnpm cache
-pnpm store prune
-
-# Remove node_modules and lockfile
-rm -rf node_modules pnpm-lock.yaml
-
-# Reinstall
+# Remove everything and start fresh
+pnpm db:reset
+rm -rf node_modules
 pnpm install
+pnpm db:setup
 ```
-
----
-
-## Resources
-
-- **Documentation**: [/docs/en/](../../../docs/en/)
-- **API Reference**: [/specs/001-association-hub/contracts/api.yaml](./contracts/api.yaml)
-- **Data Model**: [/specs/001-association-hub/data-model.md](./data-model.md)
-- **Research**: [/specs/001-association-hub/research.md](./research.md)
-- **Storybook**: http://localhost:6006 (when running)
-- **Prisma Studio**: http://localhost:5555 (when running)
-
----
 
 ## Next Steps
 
-1. ✅ Complete quickstart setup
-2. 📖 Read [architecture documentation](../../../docs/dev/architecture.md)
-3. 🎨 Explore [Storybook components](http://localhost:6006)
-4. 🗄️ Review [data model](./data-model.md)
-5. 🔌 Check [API contracts](./contracts/api.yaml)
-6. 🚀 Start building!
+- 📖 Read the [full documentation](./docs/en/getting-started.md)
+- 🎨 Explore [Storybook](http://localhost:6006) - `pnpm storybook`
+- 🗄️ View [database](http://localhost:5555) - `pnpm db:studio`
+- 🤝 Read [contributing guide](./CONTRIBUTING.md)
 
----
+## Need Help?
 
-## Getting Help
+- 💬 [GitHub Discussions](https://github.com/associationhub/associationhub/discussions)
+- 🐛 [Report a Bug](https://github.com/associationhub/associationhub/issues)
+- 📧 [Email Support](mailto:support@associationhub.org)
 
-- **GitHub Issues**: Report bugs or request features
-- **Discord**: Join community for questions
-- **Documentation**: Check `/docs/` for guides
-- **Code Review**: Ask in pull requests
-
-Happy coding! 🎉
+Happy coding! 🚀

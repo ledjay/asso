@@ -57,8 +57,8 @@ export async function POST(request: Request) {
     const membersToImport: Array<{
       name: string;
       email: string;
-      roleId: string;
-      groupId: string;
+      roleIds: string[];
+      groupIds: string[];
     }> = [];
     const errors: string[] = [];
 
@@ -70,11 +70,11 @@ export async function POST(request: Request) {
 
       const name = values[nameIndex];
       const email = values[emailIndex];
-      const roleName = values[roleIndex];
-      const groupName = values[groupIndex];
+      const roleNames = values[roleIndex];
+      const groupNames = values[groupIndex];
 
       // Validate
-      if (!name || !email || !roleName || !groupName) {
+      if (!name || !email || !roleNames || !groupNames) {
         errors.push(`Ligne ${i + 1}: Données manquantes`);
         continue;
       }
@@ -85,25 +85,47 @@ export async function POST(request: Request) {
         continue;
       }
 
-      // Validate role exists
-      const roleId = roleMap.get(roleName);
-      if (!roleId) {
-        errors.push(`Ligne ${i + 1}: Rôle inconnu (${roleName})`);
+      // Parse comma-separated roles (backward compatible with single role)
+      const roleNameList = roleNames.split(';').map(r => r.trim()).filter(r => r);
+      const roleIds: string[] = [];
+      
+      for (const roleName of roleNameList) {
+        const roleId = roleMap.get(roleName);
+        if (!roleId) {
+          errors.push(`Ligne ${i + 1}: Rôle inconnu (${roleName})`);
+          continue;
+        }
+        roleIds.push(roleId);
+      }
+
+      if (roleIds.length === 0) {
+        errors.push(`Ligne ${i + 1}: Aucun rôle valide`);
         continue;
       }
 
-      // Validate group exists
-      const groupId = groupMap.get(groupName);
-      if (!groupId) {
-        errors.push(`Ligne ${i + 1}: Groupe inconnu (${groupName})`);
+      // Parse comma-separated groups (backward compatible with single group)
+      const groupNameList = groupNames.split(';').map(g => g.trim()).filter(g => g);
+      const groupIds: string[] = [];
+      
+      for (const groupName of groupNameList) {
+        const groupId = groupMap.get(groupName);
+        if (!groupId) {
+          errors.push(`Ligne ${i + 1}: Groupe inconnu (${groupName})`);
+          continue;
+        }
+        groupIds.push(groupId);
+      }
+
+      if (groupIds.length === 0) {
+        errors.push(`Ligne ${i + 1}: Aucun groupe valide`);
         continue;
       }
 
       membersToImport.push({
         name,
         email,
-        roleId,
-        groupId,
+        roleIds,
+        groupIds,
       });
     }
 
@@ -111,7 +133,9 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { 
           error: 'Aucun membre valide à importer',
-          details: errors 
+          details: errors,
+          availableRoles: roles.map(r => r.name),
+          availableGroups: groups.map(g => g.name),
         },
         { status: 400 }
       );
@@ -126,10 +150,35 @@ export async function POST(request: Request) {
         where: { email: { in: emails } },
       });
 
-      // Create new members
-      await tx.member.createMany({
-        data: membersToImport,
-      });
+      // Create new members with junction table records
+      for (const memberData of membersToImport) {
+        const member = await tx.member.create({
+          data: {
+            name: memberData.name,
+            email: memberData.email,
+          },
+        });
+
+        // Create role associations
+        for (const roleId of memberData.roleIds) {
+          await tx.memberRole.create({
+            data: {
+              memberId: member.id,
+              roleId,
+            },
+          });
+        }
+
+        // Create group associations
+        for (const groupId of memberData.groupIds) {
+          await tx.memberGroup.create({
+            data: {
+              memberId: member.id,
+              groupId,
+            },
+          });
+        }
+      }
 
       return membersToImport.length;
     });

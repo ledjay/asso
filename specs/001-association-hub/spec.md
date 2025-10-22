@@ -16,8 +16,8 @@
 - **Post-MVP**: Multi-tenant SaaS platform
 
 **MVP Focus**: Single-tenant prototype → Multi-tenant SaaS later
-- **Month 1**: Auth + Template selection + Member CRUD + CSV import
-- **Month 2**: Email sending (basic SMTP) + filtering
+- **Month 1**: Auth + Template selection + Member CRUD (many-to-many) + CSV import + Hierarchical groups
+- **Month 2**: Email sending (basic SMTP) + filtering (with hierarchy support)
 - **Month 3**: Template tags + attachments + basic tracking
 - **Month 4**: Polish, testing, deployment, **open-source release**, documentation
 
@@ -116,6 +116,48 @@ An association administrator needs to send personalized emails with attachments 
 
 ---
 
+### User Story 4 - Many-to-Many Roles and Hierarchical Groups (Priority: P1 - MVP Critical)
+
+An association administrator needs members to have multiple roles and belong to multiple groups, with groups organized in a hierarchical structure (parent-child relationships).
+
+**Why this priority**: Real-world associations REQUIRE members with multiple responsibilities (e.g., a parent who is both "Délégué titulaire" for one class and "Membre" for another) and hierarchical group structures (e.g., "6ème" → "6ème 1", "6ème 2"). This is NOT optional - it's how associations actually work in practice. Without this, the platform cannot handle real-world use cases.
+
+**Independent Test**: Can be tested by assigning multiple roles to a member, creating a hierarchical group structure (e.g., "Football" → "U12" → "Équipe A"), filtering emails by parent groups (automatically including children), and verifying that circular references are prevented.
+
+**Acceptance Scenarios**:
+
+1. **Given** a member record, **When** admin assigns multiple roles (e.g., "Délégué titulaire" and "Membre"), **Then** the member appears in filters for both roles
+2. **Given** a member record, **When** admin assigns multiple groups (e.g., "6ème 1" and "5ème 2"), **Then** the member appears in filters for both groups
+3. **Given** group management, **When** admin creates a parent group "6ème" with child groups "6ème 1", "6ème 2", "6ème 3", **Then** groups are displayed in an indented list showing the hierarchy
+4. **Given** hierarchical groups exist, **When** admin filters emails by parent group "6ème" with "Include children" checked, **Then** all members in "6ème 1", "6ème 2", and "6ème 3" are included
+5. **Given** a group with a parent, **When** admin tries to set that group's child as its parent (circular reference), **Then** system prevents the change with clear error message
+6. **Given** a group hierarchy, **When** admin tries to create a 4th level (exceeding 3-level limit), **Then** system prevents the change with clear error message
+7. **Given** CSV import, **When** CSV contains comma-separated roles and groups (e.g., "delegue_titulaire,membre" and "6e1,5e2"), **Then** member is assigned all specified roles and groups
+8. **Given** member list, **When** viewing a member with multiple roles/groups, **Then** all roles and groups are displayed as badges
+
+**Implementation Phases**:
+- **Phase 1** (1-2 days): Many-to-many relationships (junction tables, multi-select UI, filtering)
+- **Phase 2** (1-2 days): Hierarchical groups (parent-child relations, indented display, descendant filtering, validation)
+
+**Database Changes**:
+- Add `MemberRole` junction table (memberId, roleId, assignedAt)
+- Add `MemberGroup` junction table (memberId, groupId, joinedAt)
+- Add `parentId` field to `GroupType` for self-referential hierarchy
+- Remove `roleId` and `groupId` from `Member` table
+
+**UI Changes**:
+- Multi-select dropdowns for roles and groups in member edit dialog
+- Indented list display for hierarchical groups (padding based on depth)
+- "Include child groups" checkbox in email filters
+- Multiple badge display in member table
+
+**Validation Rules**:
+- Maximum hierarchy depth: 3 levels (configurable)
+- Circular reference prevention (A → B → A not allowed)
+- Unique member-role and member-group combinations
+
+---
+
 ### Edge Cases (MVP Scope)
 
 **Must Handle**:
@@ -133,6 +175,19 @@ An association administrator needs to send personalized emails with attachments 
 - ❌ Concurrent edit detection
 - ❌ SMTP rate limiting and retry logic (rely on provider)
 - ❌ Multiple file attachments
+
+### Edge Cases (Many-to-Many & Hierarchical Groups - MVP)
+
+**Must Handle**:
+- **What happens when admin tries to create a circular group reference?** Validate on save, show error: "Cannot set [Group A] as parent - would create circular reference"
+- **What happens when admin tries to create a 4th level in group hierarchy?** Prevent with error: "Maximum hierarchy depth of 3 levels reached"
+- **What happens when filtering by parent group with "Include children" unchecked?** Only members directly in parent group are included
+- **What happens when a member has multiple roles and admin filters by one role?** Member appears in results if they have any matching role
+- **What happens when CSV contains both old format (single role/group) and new format (multiple)?** Support both - detect comma-separated values and handle accordingly
+- **What happens when admin deletes a parent group?** Cascade delete to all children (with confirmation dialog showing affected groups)
+- **What happens when displaying a member with 5+ roles/groups?** Show first 3 badges + "+2 more" with tooltip/modal showing all
+- **What happens when admin tries to assign duplicate role to same member?** Prevent with unique constraint, show friendly error
+- **What happens when email template uses {Role} tag for member with multiple roles?** Use first/primary role, or comma-separated list (to be decided during implementation)
 
 ## Requirements *(mandatory)*
 
@@ -176,6 +231,24 @@ An association administrator needs to send personalized emails with attachments 
 - **FR-020**: System MUST support CSV export of member data
 
 **Simplified for MVP**: Basic error messages (not row-by-row), hard delete, simple filters
+
+#### Member Data Management (MVP: Many-to-Many & Hierarchical Groups)
+- **FR-021-MVP**: System MUST support members having multiple roles simultaneously via junction table
+- **FR-022-MVP**: System MUST support members belonging to multiple groups simultaneously via junction table
+- **FR-023-MVP**: System MUST support hierarchical group structures with parent-child relationships (self-referential)
+- **FR-024-MVP**: System MUST limit group hierarchy to maximum 3 levels (configurable)
+- **FR-025-MVP**: System MUST prevent circular references in group hierarchy (A → B → A)
+- **FR-026-MVP**: System MUST validate circular references when creating or updating group parent relationships
+- **FR-027-MVP**: System MUST display groups in indented list format showing hierarchy depth
+- **FR-028-MVP**: System MUST support "Include child groups" option in email filters
+- **FR-029-MVP**: System MUST automatically include all descendant groups when filtering by parent group (if option enabled)
+- **FR-030-MVP**: System MUST support CSV import with comma-separated roles and groups (e.g., "role1,role2" and "group1,group2")
+- **FR-031-MVP**: System MUST display multiple role and group badges in member list
+- **FR-032-MVP**: System MUST provide multi-select dropdowns for roles and groups in member edit dialog
+- **FR-033-MVP**: System MUST maintain data integrity with unique constraints on member-role and member-group combinations
+- **FR-034-MVP**: System MUST support backward-compatible CSV format (single role/group) alongside new format (multiple)
+
+**Implementation Note**: Junction tables (`MemberRole`, `MemberGroup`) replace direct foreign keys from day one. Group hierarchy uses self-referential `parentId` field on `GroupType` table. This is the ONLY data model - no migration needed.
 
 #### Email & Communication (MVP: Basic but Functional)
 - **FR-021-MVP**: System MUST support SMTP configuration stored in encrypted database (BYO SMTP is critical for MVP)
@@ -251,18 +324,29 @@ An association administrator needs to send personalized emails with attachments 
 
 - **User**: Single admin user for MVP (NextAuth). Attributes: email, hashed password, name. Multi-tenant admin model deferred to post-MVP.
 
-- **Member**: Individual belonging to the association. Attributes: name, email, role (enum: délégué_titulaire, délégué_suppléant, membre), group (string: classe name like "CM2"), created date. Simplified for MVP - no soft delete, no bounce tracking.
+- **Member**: Individual belonging to the association. Attributes: name, email, created date. Relationships: multiple roles (via MemberRole junction), multiple groups (via MemberGroup junction). Simplified for MVP - no soft delete, no bounce tracking.
 
 - **EmailCampaign**: Record of a mass email sent. Attributes: subject, body template, attachment URL (S3/Vercel Blob), sender user ID, created timestamp, recipient count. Simplified for MVP - no per-recipient tracking.
 
 - **SMTPConfiguration**: SMTP credentials for sending emails. Attributes: host, port, username, encrypted password, from address, user ID. **MVP Entity** - BYO SMTP is critical for self-hosted deployments. Credentials encrypted at rest using encryption key from environment.
 
+- **Role** (MVP): Database table for association roles. Attributes: name, display_name, sort_order. MVP seeds from 3 hardcoded templates, post-MVP allows custom creation.
+
+- **GroupType** (MVP): Database table for group categories. Attributes: name, category (classe/équipe/section), **parentId** (nullable, for hierarchy). MVP seeds from 3 hardcoded templates with hierarchical structures, post-MVP allows custom creation.
+
+- **MemberRole** (MVP - Many-to-Many): Junction table linking members to roles. Attributes: id, memberId, roleId, assignedAt. Enables members to have multiple roles simultaneously from day one.
+
+- **MemberGroup** (MVP - Many-to-Many): Junction table linking members to groups. Attributes: id, memberId, groupId, joinedAt. Enables members to belong to multiple groups simultaneously from day one.
+
 **Post-MVP Entities**: 
 - **Template** (critical for business scaling): Represents a reusable association configuration. Attributes: name, description, creator user ID, role definitions (JSON), group type definitions (JSON), is_public (shareable), usage_count, created_at. Enables user-generated templates and marketplace.
-- **Role**: Database table for association roles. Attributes: name, display_name, template_id (nullable for custom), sort_order. MVP seeds from hardcoded templates, post-MVP allows custom creation.
-- **GroupType**: Database table for group categories. Attributes: name, category (classe/équipe/section), template_id (nullable for custom), examples. MVP seeds from hardcoded templates, post-MVP allows custom creation.
 - **EmailDelivery**: Per-recipient tracking
 - **ImportJob**: Detailed CSV import tracking
+
+**Data Model** (MVP from day one):
+- Member has multiple roles and groups via junction tables
+- Groups support parent-child hierarchy (3 levels max)
+- No migration needed - this is the base architecture
 
 ## Success Criteria *(mandatory)*
 
@@ -287,6 +371,17 @@ An association administrator needs to send personalized emails with attachments 
 - ❌ WCAG AAA compliance (AA minimum in MVP)
 - ❌ Concurrent tenant performance (single-tenant MVP)
 - ❌ Sub-second page loads (< 2s acceptable for MVP on 3G)
+
+**Many-to-Many & Hierarchical Groups Success Criteria** (MVP):
+- **SC-010-MVP**: Admin can assign multiple roles to a member and filter emails by any role
+- **SC-011-MVP**: Admin can assign multiple groups to a member and filter emails by any group
+- **SC-012-MVP**: Admin can create 3-level group hierarchy (e.g., "Football" → "U12" → "Équipe A")
+- **SC-013-MVP**: System prevents circular references with clear error messages
+- **SC-014-MVP**: Filtering by parent group automatically includes all child group members when "Include children" is checked
+- **SC-015-MVP**: CSV import supports both single and multiple roles/groups formats
+- **SC-016-MVP**: Member list clearly displays all roles and groups for each member
+- **SC-017-MVP**: Hierarchy validation prevents exceeding 3-level depth limit
+- **SC-018-MVP**: Group hierarchy is displayed in intuitive indented list format
 
 ### Assumptions
 

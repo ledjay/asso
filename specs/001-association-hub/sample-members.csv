@@ -1,0 +1,8 @@
+nom,email,role,groupe
+Jean Dupont,jean.dupont@example.com,delegue_titulaire,6ème 1
+Marie Martin,marie.martin@example.com,delegue_suppleant,6ème 1
+Pierre Durand,pierre.durand@example.com,membre,6ème 2
+Sophie Bernard,sophie.bernard@example.com,delegue_titulaire;membre,6ème 1;6ème 2
+Luc Petit,luc.petit@example.com,membre,6ème 3
+Anne Moreau,anne.moreau@example.com,delegue_titulaire,5ème 1
+Thomas Leroy,thomas.leroy@example.com,membre,5ème 2;5ème 3

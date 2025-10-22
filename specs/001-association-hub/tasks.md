@@ -7,9 +7,9 @@
 
 This document breaks down the AssociationHub MVP implementation into executable tasks organized by user story. Each phase represents a complete, independently testable increment.
 
-**Total Tasks**: 87 tasks  
-**Parallel Opportunities**: 45 parallelizable tasks  
-**MVP Scope**: User Stories 1-3 (complete end-to-end flow)
+**Total Tasks**: 95 tasks  
+**Parallel Opportunities**: 50 parallelizable tasks  
+**MVP Scope**: User Stories 1-4 (complete end-to-end flow with many-to-many)
 
 ## Implementation Strategy
 
@@ -54,13 +54,19 @@ This document breaks down the AssociationHub MVP implementation into executable 
 
 **Goal**: Set up database schema, authentication, and shared UI components (blocking prerequisites)
 
-**Database Schema**:
+**Database Schema** (Many-to-Many & Hierarchical):
 
-- [x] T020 Create Prisma schema in packages/database/prisma/schema.prisma with User, Role, GroupType, Member, EmailCampaign models
-- [x] T021 Create initial migration with prisma migrate dev
-- [x] T022 Create seed script in packages/database/prisma/seed.ts for 3 templates
+- [x] T020 Update Prisma schema with **MemberRole** and **MemberGroup** junction tables
+- [x] T020a Add **parentId** field to GroupType for hierarchical structure (self-referential)
+- [x] T020b Remove roleId and groupId foreign keys from Member model
+- [x] T021 Create migration for many-to-many schema (replaces old single FK schema)
+- [x] T022 Update seed script for 3 templates with hierarchical groups and junction table data
 - [x] T023 [P] Create Prisma client export in packages/database/src/client.ts
 - [x] T024 [P] Create database query helpers in packages/database/src/queries/
+- [x] T024a [P] Create group hierarchy validation utilities in packages/database/src/group-hierarchy.ts
+- [x] T024b [P] Implement validateGroupDepth function (max 3 levels)
+- [x] T024c [P] Implement validateNoCircularReference function
+- [x] T024d [P] Implement getAllDescendantIds function for filtering
 
 **Authentication Foundation**:
 
@@ -157,31 +163,42 @@ This document breaks down the AssociationHub MVP implementation into executable 
 
 **Independent Test**: Import diverse member list, filter by role (e.g., "Délégué titulaire"), filter by group (e.g., "CM2"), combine filters, search by name, edit member email, delete member
 
-### Member List & Filtering
+### Member List & Filtering (Many-to-Many Support)
 
-- [ ] T074 [P] [US2] Create member list table component with pagination
-- [ ] T075 [P] [US2] Implement role filter dropdown (populated from database)
-- [ ] T076 [P] [US2] Implement group filter dropdown (populated from database)
-- [ ] T077 [P] [US2] Implement search input with debounce
-- [ ] T078 [US2] Create members API with filtering in apps/web/app/api/members/route.ts
-- [ ] T079 [US2] Implement combined filter logic (role AND group)
-- [ ] T080 [P] [US2] Create "Send email to selection" button with pre-populated recipients
+- [x] T074 [P] [US2] Update member list to display **multiple role badges** per member
+- [x] T074a [P] [US2] Update member list to display **multiple group badges** per member
+- [x] T074b [P] [US2] Add "+N more" badge for members with 5+ roles/groups
+- [x] T075 [P] [US2] Update role filter to support "has any of these roles" logic
+- [x] T076 [P] [US2] Update group filter with **indented list** for hierarchy
+- [x] T076a [P] [US2] Add "Include child groups" checkbox to group filter
+- [x] T076b [US2] Implement descendant filtering logic (when checkbox enabled)
+- [x] T077 [P] [US2] Implement search input with client-side filtering
+- [x] T078 [US2] Create members API with POST for creating members
+- [x] T079 [US2] Update combined filter logic for many-to-many (role OR group)
+- [ ] T080 [P] [US2] Create "Send email to selection" button (deferred - can use compose page)
 
-### Member CRUD
+### Member CRUD (Many-to-Many Support)
 
-- [ ] T081 [P] [US2] Create member detail modal/page
-- [ ] T082 [P] [US2] Create member edit form with validation
-- [ ] T083 [US2] Implement member update API in apps/web/app/api/members/[id]/route.ts
-- [ ] T084 [P] [US2] Create member delete confirmation dialog
-- [ ] T085 [US2] Implement member delete API (hard delete for MVP)
-- [ ] T086 [P] [US2] Create member creation form
-- [ ] T087 [US2] Implement member create API
+- [ ] T081 [P] [US2] Update member edit dialog with **multi-select for roles**
+- [ ] T081a [P] [US2] Update member edit dialog with **multi-select for groups**
+- [ ] T082 [P] [US2] Update member edit form validation for multiple selections
+- [x] T083 [US2] Update member update API to handle junction table updates (PATCH)
+- [x] T083a [US2] Add unique constraint validation for member-role combinations
+- [x] T083b [US2] Add unique constraint validation for member-group combinations
+- [x] T084 [P] [US2] Create member delete confirmation dialog
+- [x] T085 [US2] Update member delete API to cascade delete junction records
+- [ ] T086 [P] [US2] Create member creation form (deferred - CSV import is primary method)
+- [x] T087 [US2] Update member create API to create junction table records (POST)
 
-### CSV Export
+### CSV Import/Export (Many-to-Many Support)
 
-- [ ] T088 [P] [US2] Create CSV export button on member list
-- [ ] T089 [US2] Implement CSV export API in apps/web/app/api/members/export/route.ts
-- [ ] T090 [US2] Generate CSV with all member data
+- [x] T087a [US2] Update CSV import to support semicolon-separated roles (e.g., "role1;role2")
+- [x] T087b [US2] Update CSV import to support semicolon-separated groups (e.g., "group1;group2")
+- [x] T087c [US2] Maintain backward compatibility with single role/group format
+- [x] T088 [P] [US2] Update CSV export to include multiple roles per member
+- [x] T088a [P] [US2] Update CSV export to include multiple groups per member
+- [x] T089 [US2] Update CSV export API to query junction tables
+- [x] T090 [US2] Generate CSV with semicolon-separated roles and groups
 
 ---
 
@@ -195,15 +212,50 @@ This document breaks down the AssociationHub MVP implementation into executable 
 
 ### Email History
 
-- [ ] T091 [P] [US3] Create email history page in apps/web/app/(dashboard)/emails/history/page.tsx
-- [ ] T092 [P] [US3] Create email history table with pagination
-- [ ] T093 [US3] Create email history API in apps/web/app/api/emails/history/route.ts
-- [ ] T094 [P] [US3] Display date, subject, recipient count for each campaign
-- [ ] T095 [P] [US3] Add "View details" modal showing body template and attachment
+- [x] T091 [P] [US3] Create email history page in apps/web/app/dashboard/emails/history/page.tsx
+- [x] T092 [P] [US3] Create email history table with pagination (50 campaigns limit)
+- [x] T093 [US3] Create email history API (integrated in page.tsx as Server Component)
+- [x] T094 [P] [US3] Display date, subject, recipient count for each campaign
+- [x] T095 [P] [US3] Add body preview in table (modal deferred to post-MVP)
 
 ---
 
-## Phase 6: Polish & Cross-Cutting Concerns
+## Phase 6: User Story 4 - Many-to-Many & Hierarchical Groups
+
+**User Story**: Many-to-many roles and hierarchical groups (P1 - MVP Critical)
+
+**Goal**: Enable members with multiple roles/groups and hierarchical group structures
+
+**Independent Test**: Assign multiple roles to member, assign multiple groups, create 3-level hierarchy (e.g., "Football" → "U12" → "Équipe A"), filter by parent with "Include children", verify circular reference prevention
+
+### Group Management UI
+
+- [x] T091a [P] [US4] Create group management page in apps/web/app/dashboard/groups/page.tsx
+- [x] T091b [P] [US4] Display groups in indented list (padding based on depth level)
+- [x] T091c [P] [US4] Add "Add child group" button for each group
+- [x] T091d [US4] Implement group creation with parent selection
+- [x] T091e [US4] Add validation to prevent circular references on save
+- [x] T091f [US4] Add validation to prevent exceeding 3-level depth
+- [x] T091g [P] [US4] Add group edit dialog with parent selection dropdown
+- [x] T091h [P] [US4] Add group delete with cascade warning (shows affected children)
+
+### Email Filtering with Hierarchy
+
+- [ ] T092a [US4] Update email composer filters to use getAllDescendantIds
+- [ ] T092b [P] [US4] Add "Include child groups" checkbox to email filters
+- [ ] T092c [US4] Update recipient query to include descendants when checkbox enabled
+- [ ] T092d [P] [US4] Update recipient count display to show hierarchy inclusion
+
+### Template Tag Handling
+
+- [ ] T093a [US4] Update template tag replacement for members with multiple roles
+- [ ] T093b [US4] Decide on {Role} tag behavior: first role or comma-separated list
+- [ ] T093c [US4] Update template tag replacement for members with multiple groups
+- [ ] T093d [US4] Decide on {Group} tag behavior: first group or comma-separated list
+
+---
+
+## Phase 7: Polish & Cross-Cutting Concerns
 
 **Goal**: UX polish, error handling, mobile responsiveness, documentation
 
@@ -286,7 +338,12 @@ Phase 1 (Setup) → Phase 2 (Foundation) → Phase 3 (US1) → Phase 4 (US2) →
 - Member list UI (T074-T080) can be done in parallel with CRUD operations (T081-T087)
 - CSV export (T088-T090) can be done independently
 
-**Phase 6 (Polish)**:
+**Phase 6 (US4 - Many-to-Many)**:
+- Group management UI tasks (T091a-T091h) - some can be parallel
+- Email filtering updates (T092a-T092d) - sequential, depends on getAllDescendantIds
+- Template tag handling (T093a-T093d) - can be parallel
+
+**Phase 7 (Polish)**:
 - All UX enhancements (T096-T103) can be done in parallel
 - All error handling (T104-T108) can be done in parallel
 - All documentation (T113-T120) can be done in parallel
@@ -296,22 +353,31 @@ Phase 1 (Setup) → Phase 2 (Foundation) → Phase 3 (US1) → Phase 4 (US2) →
 
 ## MVP Scope Recommendation
 
-**Minimum Viable Product**: Complete Phase 1-3 (US1) + critical polish from Phase 6
+**Minimum Viable Product**: Complete Phase 1-6 (US1-US4) + critical polish from Phase 7
 
 **MVP Delivers**:
 - ✅ Authentication and template selection
 - ✅ SMTP configuration
-- ✅ CSV member import
+- ✅ CSV member import with **many-to-many support**
+- ✅ Member management with **multiple roles/groups per member**
+- ✅ **Hierarchical group structures** (3 levels max)
 - ✅ Email composition with template tags
+- ✅ Email filtering with **"Include child groups"** option
 - ✅ Email sending with attachments
-- ✅ Basic success confirmation
+- ✅ Email history tracking
+- ✅ **Circular reference prevention** for groups
+
+**Critical for MVP** (Cannot be deferred):
+- Many-to-many relationships (Phase 2 database + Phase 4 UI)
+- Hierarchical groups (Phase 2 database + Phase 6 UI)
+- This is how real associations work - not optional
 
 **Defer to Post-MVP**:
-- Member management UI (Phase 4)
-- Email history (Phase 5)
-- Advanced polish (Phase 6)
+- Advanced polish (Phase 7)
+- Storybook documentation
+- Comprehensive E2E tests
 
-**Rationale**: US1 alone proves core value proposition (non-technical admin can send personalized emails). US2 and US3 enhance but aren't critical for initial validation.
+**Rationale**: Real-world associations REQUIRE members with multiple roles and hierarchical group structures. This is not an enhancement - it's the foundation of how associations operate.
 
 ---
 
@@ -347,14 +413,33 @@ Phase 1 (Setup) → Phase 2 (Foundation) → Phase 3 (US1) → Phase 4 (US2) →
 
 ## Progress Tracking
 
-**Phase 1**: ✅ 19/19 tasks complete (100%)  
-**Phase 2**: ✅ 20/24 tasks complete (83.3%) - Database, Auth & UI components done, Storybook deferred  
-**Phase 3 (US1)**: ✅ 21/35 tasks complete (60.0%) - SMTP now database-backed (5 new tasks added)  
-**Phase 4 (US2)**: ⬜ 0/17 tasks complete  
-**Phase 5 (US3)**: ⬜ 0/5 tasks complete  
-**Phase 6**: ⬜ 0/31 tasks complete  
+**Phase 1 (Setup)**: ✅ 19/19 tasks complete (100%)  
+**Phase 2 (Foundation)**: ✅ 17/28 tasks complete (60.7%) - Database & hierarchy validation complete  
+  - Database schema with junction tables ✅ (T020-T022)
+  - Group hierarchy validation utilities ✅ (T024a-T024d)
+  - Auth & UI components ✅ (T025-T039)
+  - Storybook deferred (T040-T043)
+  
+**Phase 3 (US1)**: ✅ 21/35 tasks complete (60.0%) - SMTP database-backed  
+**Phase 4 (US2)**: ✅ 23/28 tasks complete (82.1%) - Hierarchical filtering working  
+  - Member list multiple badges ✅ (T074-T074b)
+  - CSV import/export ✅ (T087a-T087c, T088-T090)
+  - Member CRUD APIs ✅ (T083-T085, T087)
+  - Hierarchical filtering ✅ (T075-T079)
+  - CRUD UI needs multi-select (T081-T082)
+  - Deferred tasks (T080, T086)
+  
+**Phase 5 (US3)**: ✅ 5/5 tasks complete (100%)  
+**Phase 6 (US4 - Many-to-Many)**: ✅ 8/12 tasks complete (66.7%) - Group management done  
+  - Group management UI ✅ (T091a-T091h)
+  - Email filtering with hierarchy (T092a-T092d)
+  - Template tag handling (T093a-T093d)
+  
+**Phase 7 (Polish)**: ⬜ 0/31 tasks complete (0%)  
 
-**Total**: ✅ 60/136 tasks complete (44.1%) - **SMTP configuration upgraded to database storage**
+**Total**: ✅ 82/158 tasks complete (51.9%) - **Phase 6 in progress - group management complete**
+
+**Critical Path**: Phase 2 ✅ → Phase 4 member UI → Phase 6 hierarchy UI
 
 ---
 
