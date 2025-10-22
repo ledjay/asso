@@ -1,0 +1,501 @@
+nom,email,role,groupe
+Isabelle Barbier,isabelle.barbier@example.com,delegue_titulaire,6ème 1
+Sandrine Roux,sandrine.roux@example.com,delegue_titulaire,6ème 2
+Ernest Blanchard,ernest.blanchard@example.com,delegue_titulaire,6ème 3
+Corinne Boyer,corinne.boyer@example.com,delegue_titulaire,6ème 4
+Léonie Thomas,leonie.thomas@example.com,delegue_titulaire,5ème 1
+Léopold Chevalier,leopold.chevalier@example.com,delegue_titulaire,5ème 2
+Lucien Faure,lucien.faure@example.com,delegue_titulaire,5ème 3
+Marthe Denis,marthe.denis@example.com,delegue_titulaire,5ème 4
+Robert Girard,robert.girard@example.com,delegue_titulaire,4ème 1
+Véronique Leroy,veronique.leroy@example.com,delegue_titulaire,4ème 2
+Didier Robert,didier.robert@example.com,delegue_titulaire,4ème 3
+Danielle Renard,danielle.renard@example.com,delegue_titulaire,4ème 4
+Édouard Rodriguez,edouard.rodriguez@example.com,delegue_titulaire,3ème 1
+Albert Duval,albert.duval@example.com,delegue_titulaire,3ème 2
+André Arnaud,andre.arnaud@example.com,delegue_titulaire,3ème 3
+Christine Lacroix,christine.lacroix@example.com,delegue_titulaire,3ème 4
+Jeannine Dupuis,jeannine.dupuis@example.com,delegue_suppleant,6ème 1
+Marguerite Roy,marguerite.roy@example.com,delegue_suppleant,6ème 2
+François Faure,françois.faure@example.com,delegue_suppleant,6ème 3
+Stéphane Picard,stephane.picard@example.com,delegue_suppleant,6ème 4
+Alphonse Gerard,alphonse.gerard@example.com,delegue_suppleant,5ème 1
+Bruno Fabre,bruno.fabre@example.com,delegue_suppleant,5ème 2
+Augustine Dupuis,augustine.dupuis@example.com,delegue_suppleant,5ème 3
+Véronique Richard,veronique.richard@example.com,delegue_suppleant,5ème 4
+Victor Roussel,victor.roussel@example.com,delegue_suppleant,4ème 1
+Nicole Leclercq,nicole.leclercq@example.com,delegue_suppleant,4ème 2
+Marcelle Dufour,marcelle.dufour@example.com,delegue_suppleant,4ème 3
+Suzanne Simon,suzanne.simon@example.com,delegue_suppleant,4ème 4
+Marc Nguyen,marc.nguyen@example.com,delegue_suppleant,3ème 1
+Gérard Picard,gerard.picard@example.com,delegue_suppleant,3ème 2
+Paulette Caron,paulette.caron@example.com,delegue_suppleant,3ème 3
+Raoul Vidal,raoul.vidal@example.com,delegue_suppleant,3ème 4
+Chantal Faure,chantal.faure@example.com,delegue_suppleant;delegue_titulaire,4ème 2
+Arthur Vidal,arthur.vidal@example.com,membre,3ème 4
+Léonie Leclerc,leonie.leclerc@example.com,membre,6ème 4
+Augustine Lacroix,augustine.lacroix@example.com,delegue_suppleant,6ème 3
+Cécile Bernard,cecile.bernard@example.com,delegue_titulaire,4ème 2
+Christian Lemoine,christian.lemoine@example.com,delegue_suppleant,6ème 3
+Jules Vincent,jules.vincent@example.com,delegue_suppleant,3ème 3
+Marcel David,marcel.david@example.com,membre,6ème 2
+Chantal Schmitt,chantal.schmitt@example.com,delegue_suppleant,6ème 4
+Pierre Rolland,pierre.rolland@example.com,membre,5ème 2
+Andrée Dufour,andree.dufour@example.com,delegue_titulaire;membre,5ème 1;5ème 4;3ème 3
+François Robin,françois.robin@example.com,delegue_titulaire,3ème 2
+Julie Nguyen,julie.nguyen@example.com,membre;delegue_suppleant,3ème 4
+Maurice Mathieu,maurice.mathieu@example.com,membre,3ème 4
+Fernand Robert,fernand.robert@example.com,membre,4ème 4
+Raymond Marchand,raymond.marchand@example.com,delegue_suppleant,5ème 3
+François Michel,françois.michel@example.com,membre,3ème 1
+Stéphane Gaillard,stephane.gaillard@example.com,delegue_titulaire,6ème 1
+Claire Da Silva,claire.da silva@example.com,delegue_titulaire,3ème 1
+Martine François,martine.françois@example.com,delegue_suppleant,4ème 2;6ème 3;3ème 1
+Yvette Renaud,yvette.renaud@example.com,delegue_titulaire,3ème 4
+Maurice Caron,maurice.caron@example.com,delegue_suppleant,3ème 3
+Daniel Perez,daniel.perez@example.com,membre,3ème 2
+Léon Fabre,leon.fabre@example.com,delegue_suppleant,3ème 4
+Michèle François,michele.françois@example.com,membre,6ème 2
+Daniel Blanchard,daniel.blanchard@example.com,membre,6ème 1
+Dominique Morin,dominique.morin@example.com,membre,4ème 2
+Christophe Renaud,christophe.renaud@example.com,delegue_titulaire,3ème 3
+Christian Lefebvre,christian.lefebvre@example.com,delegue_titulaire,6ème 1
+Marcel Roger,marcel.roger@example.com,membre,5ème 3
+Thomas Olivier,thomas.olivier@example.com,delegue_suppleant,3ème 4
+Thomas Picard,thomas.picard@example.com,membre,4ème 4
+Céline Guerin,celine.guerin@example.com,delegue_titulaire;membre,4ème 3
+Augustine Dumont,augustine.dumont@example.com,delegue_suppleant,4ème 2;3ème 1;5ème 3
+Laurence Leroy,laurence.leroy@example.com,membre,6ème 1
+Nicolas Roger,nicolas.roger@example.com,delegue_suppleant,5ème 2
+Véronique Clement,veronique.clement@example.com,membre,4ème 3
+Nicolas Lopez,nicolas.lopez@example.com,membre;delegue_suppleant,4ème 1;5ème 3
+Yvonne Faure,yvonne.faure@example.com,delegue_suppleant,3ème 3
+Arthur Muller,arthur.muller@example.com,delegue_suppleant,6ème 1
+Augustine Legrand,augustine.legrand@example.com,membre,4ème 2
+Arthur Dubois,arthur.dubois@example.com,membre,3ème 1
+Thomas Michel,thomas.michel@example.com,membre,6ème 2
+Françoise Martin,françoise.martin@example.com,delegue_titulaire,5ème 3
+Patrick Leclerc,patrick.leclerc@example.com,membre,5ème 2
+Marie Girard,marie.girard@example.com,delegue_suppleant,6ème 1
+Christine Roger,christine.roger@example.com,membre,6ème 4
+Chantal Bernard,chantal.bernard@example.com,delegue_suppleant,5ème 3;5ème 1;4ème 4
+Nicole Fontaine,nicole.fontaine@example.com,delegue_suppleant;membre,6ème 4;6ème 3
+Jacques Masson,jacques.masson@example.com,delegue_suppleant,5ème 1
+Victor Fontaine,victor.fontaine@example.com,delegue_suppleant,6ème 1
+Stéphane Lefebvre,stephane.lefebvre@example.com,membre,5ème 1
+Luc Lucas,luc.lucas@example.com,delegue_titulaire,6ème 2;3ème 1;5ème 4
+Céline François,celine.françois@example.com,delegue_titulaire,6ème 1
+Thierry Muller,thierry.muller@example.com,delegue_suppleant,3ème 2
+Odette Meyer,odette.meyer@example.com,delegue_titulaire,4ème 3;3ème 1;3ème 2
+Édouard Richard,edouard.richard@example.com,delegue_suppleant;membre,3ème 2
+Simone Clement,simone.clement@example.com,membre,4ème 2
+Marcel Pierre,marcel.pierre@example.com,membre,4ème 2
+Alain Barbier,alain.barbier@example.com,delegue_suppleant,5ème 4
+Christine Leclercq,christine.leclercq@example.com,membre,3ème 3
+Jacques Martinez,jacques.martinez@example.com,membre,5ème 3
+Gilbert Leclercq,gilbert.leclercq@example.com,delegue_titulaire,5ème 3;6ème 1
+Françoise Roche,françoise.roche@example.com,membre,6ème 4
+Raymond Robin,raymond.robin@example.com,delegue_titulaire,3ème 2;4ème 4;6ème 2
+Albert Mercier,albert.mercier@example.com,membre,4ème 3
+Sylvie Bernard,sylvie.bernard@example.com,delegue_suppleant,4ème 3
+Didier Guerin,didier.guerin@example.com,delegue_suppleant,4ème 2;4ème 4;3ème 3
+Luc Philippe,luc.philippe@example.com,delegue_titulaire,6ème 2
+Nicolas Robin,nicolas.robin@example.com,membre;delegue_suppleant,4ème 3
+Yvette Mathieu,yvette.mathieu@example.com,membre,5ème 2
+Andrée Jean,andree.jean@example.com,delegue_suppleant;delegue_titulaire,3ème 4
+Bruno Boyer,bruno.boyer@example.com,membre,3ème 2
+Blanche Mercier,blanche.mercier@example.com,delegue_suppleant;delegue_titulaire,6ème 4;3ème 4
+Henriette Jean,henriette.jean@example.com,membre,4ème 2
+Ernest Durand,ernest.durand@example.com,delegue_titulaire,6ème 4
+Françoise Guerin,françoise.guerin@example.com,membre,3ème 3
+Philippe Nicolas,philippe.nicolas@example.com,delegue_titulaire,3ème 3;5ème 2
+Josiane Dupuis,josiane.dupuis@example.com,delegue_titulaire;delegue_suppleant,5ème 1
+Alphonse Durand,alphonse.durand@example.com,membre,3ème 4
+Isabelle Roussel,isabelle.roussel@example.com,delegue_titulaire,5ème 2;6ème 3
+Roger Fernandez,roger.fernandez@example.com,delegue_titulaire,4ème 1
+Sandrine Lopez,sandrine.lopez@example.com,membre,3ème 4
+Isabelle Robert,isabelle.robert@example.com,membre,4ème 3
+Marcelle Lopez,marcelle.lopez@example.com,delegue_titulaire,5ème 4
+Édouard Bourgeois,edouard.bourgeois@example.com,delegue_titulaire,6ème 3
+Martine Marchand,martine.marchand@example.com,membre;delegue_titulaire,4ème 3;4ème 1;5ème 4
+Marie Lemoine,marie.lemoine@example.com,delegue_titulaire,6ème 3
+Léon Bonnet,leon.bonnet@example.com,delegue_titulaire,5ème 1
+Michèle Mathieu,michele.mathieu@example.com,membre,5ème 3
+Marc Lambert,marc.lambert@example.com,membre,6ème 2
+Thierry Durand,thierry.durand@example.com,membre,4ème 4
+Émile Brunet,emile.brunet@example.com,delegue_suppleant,6ème 1
+Brigitte Clement,brigitte.clement@example.com,membre;delegue_titulaire,4ème 1
+Christian Rousseau,christian.rousseau@example.com,membre,6ème 4
+Gérard Schmitt,gerard.schmitt@example.com,delegue_suppleant,6ème 1
+Bruno Renaud,bruno.renaud@example.com,membre,5ème 3
+Marie Meunier,marie.meunier@example.com,delegue_suppleant,5ème 1
+Pierre Nicolas,pierre.nicolas@example.com,membre,3ème 2
+Robert Michel,robert.michel@example.com,delegue_titulaire,3ème 1
+Didier Marchand,didier.marchand@example.com,membre;delegue_suppleant,3ème 4
+Nicole David,nicole.david@example.com,membre,3ème 3
+Lucienne Nguyen,lucienne.nguyen@example.com,membre,3ème 1
+Henriette Morin,henriette.morin@example.com,delegue_suppleant,4ème 2
+Didier Dumont,didier.dumont@example.com,delegue_titulaire,6ème 3
+Didier Thomas,didier.thomas@example.com,delegue_suppleant,5ème 1
+Julie Blanc,julie.blanc@example.com,membre;delegue_suppleant,5ème 4
+Marthe Gautier,marthe.gautier@example.com,membre,5ème 4
+Cécile Girard,cecile.girard@example.com,delegue_titulaire,5ème 2;4ème 3;4ème 4
+Odette Boyer,odette.boyer@example.com,delegue_suppleant,6ème 1
+Hélène Renard,helene.renard@example.com,membre,6ème 2
+Didier Philippe,didier.philippe@example.com,membre,6ème 2
+Daniel Lemaire,daniel.lemaire@example.com,delegue_titulaire,6ème 3
+Albert Gerard,albert.gerard@example.com,delegue_titulaire,6ème 4
+Ernest Brun,ernest.brun@example.com,delegue_titulaire,3ème 4
+Philippe Robin,philippe.robin@example.com,membre,4ème 1
+Denise Lemoine,denise.lemoine@example.com,delegue_titulaire,4ème 2
+Marie Meunier,marie.meunier2@example.com,membre,6ème 3
+Andrée Gautier,andree.gautier@example.com,delegue_titulaire,4ème 1;3ème 3;4ème 3
+Nathalie David,nathalie.david@example.com,delegue_titulaire,6ème 3
+Georges Nicolas,georges.nicolas@example.com,membre,6ème 1
+Yvonne Lacroix,yvonne.lacroix@example.com,delegue_titulaire,4ème 2
+Suzanne Moreau,suzanne.moreau@example.com,delegue_suppleant,4ème 1
+Serge Martinez,serge.martinez@example.com,delegue_titulaire;delegue_suppleant,4ème 4
+Michel Arnaud,michel.arnaud@example.com,membre,6ème 4
+Raymond Fernandez,raymond.fernandez@example.com,membre,3ème 2
+Alain Roger,alain.roger@example.com,membre,4ème 2;3ème 1
+Alain Jean,alain.jean@example.com,delegue_suppleant,4ème 4
+Alphonse Giraud,alphonse.giraud@example.com,delegue_titulaire,6ème 3
+Arthur Pierre,arthur.pierre@example.com,membre,3ème 3
+Yvonne Lopez,yvonne.lopez@example.com,membre,6ème 3
+Henriette Roux,henriette.roux@example.com,delegue_suppleant,3ème 2
+Céline Caron,celine.caron@example.com,delegue_suppleant,6ème 4
+Nathalie Arnaud,nathalie.arnaud@example.com,delegue_titulaire,3ème 2
+Suzanne Fontaine,suzanne.fontaine@example.com,delegue_titulaire,5ème 2
+Robert Olivier,robert.olivier@example.com,delegue_suppleant,4ème 3
+Denise Caron,denise.caron@example.com,membre,3ème 2
+Laurence Dupont,laurence.dupont@example.com,membre,4ème 1;6ème 2;6ème 4
+Daniel Lambert,daniel.lambert@example.com,membre,5ème 4
+Andrée Leroy,andree.leroy@example.com,delegue_suppleant,3ème 1
+Josiane Garcia,josiane.garcia@example.com,delegue_titulaire,3ème 3
+Nathalie Lefebvre,nathalie.lefebvre@example.com,membre,4ème 2;6ème 2
+Albert Garnier,albert.garnier@example.com,delegue_suppleant,3ème 4
+Jeanne Giraud,jeanne.giraud@example.com,delegue_titulaire,6ème 4
+Françoise Gautier,françoise.gautier@example.com,membre;delegue_titulaire,3ème 2
+Lucie Meyer,lucie.meyer@example.com,delegue_titulaire,6ème 3
+Bernard Roy,bernard.roy@example.com,membre,5ème 4
+Jeanne Dumont,jeanne.dumont@example.com,delegue_titulaire,6ème 3
+Colette Martinez,colette.martinez@example.com,delegue_suppleant,6ème 4
+Blanche Roche,blanche.roche@example.com,membre,5ème 1
+Thérèse Lucas,therese.lucas@example.com,delegue_suppleant,5ème 1
+Léopold Garcia,leopold.garcia@example.com,delegue_titulaire,3ème 1
+Nathalie Faure,nathalie.faure@example.com,delegue_titulaire,4ème 1;4ème 4
+Eugène Thomas,eugene.thomas@example.com,membre;delegue_titulaire,3ème 2
+Bruno François,bruno.françois@example.com,delegue_titulaire,6ème 1
+Bernard Durand,bernard.durand@example.com,membre,5ème 4;4ème 1;6ème 4
+Corinne Noel,corinne.noel@example.com,delegue_titulaire,4ème 3
+Germaine Legrand,germaine.legrand@example.com,delegue_titulaire,6ème 2
+Josiane Barbier,josiane.barbier@example.com,delegue_titulaire;membre,5ème 1
+Léonie Sanchez,leonie.sanchez@example.com,delegue_suppleant,5ème 2;3ème 2;6ème 2
+Lucie Gauthier,lucie.gauthier@example.com,membre,5ème 1
+Léon Rousseau,leon.rousseau@example.com,delegue_suppleant,5ème 1
+Philippe Joly,philippe.joly@example.com,delegue_titulaire,3ème 3
+Marcelle Perez,marcelle.perez@example.com,membre;delegue_titulaire,3ème 2
+Stéphane Simon,stephane.simon@example.com,delegue_suppleant,4ème 3
+Jacques Robert,jacques.robert@example.com,delegue_titulaire;membre,4ème 1;4ème 2;6ème 1
+Jules Dumas,jules.dumas@example.com,delegue_suppleant,3ème 1
+Marie Dupont,marie.dupont@example.com,membre,6ème 3
+Dominique Joly,dominique.joly@example.com,delegue_suppleant,6ème 1
+Thomas Gauthier,thomas.gauthier@example.com,delegue_suppleant,4ème 1
+Yves Marchand,yves.marchand@example.com,delegue_titulaire,6ème 1
+Marthe Michel,marthe.michel@example.com,membre;delegue_titulaire,5ème 2
+Monique Clement,monique.clement@example.com,membre,4ème 1
+Chantal Vincent,chantal.vincent@example.com,delegue_titulaire,4ème 2
+André Leroux,andre.leroux@example.com,delegue_suppleant,5ème 4
+Françoise Philippe,françoise.philippe@example.com,membre,3ème 2
+Daniel Henry,daniel.henry@example.com,delegue_titulaire,3ème 2
+Claire Rolland,claire.rolland@example.com,delegue_suppleant,3ème 2;3ème 4;4ème 4
+René Guerin,rene.guerin@example.com,delegue_titulaire,3ème 3
+François Renaud,françois.renaud@example.com,delegue_suppleant,4ème 2
+Albert Bernard,albert.bernard@example.com,delegue_suppleant,5ème 2
+Michèle Michel,michele.michel@example.com,delegue_titulaire,3ème 2
+Nicole Noel,nicole.noel@example.com,membre,3ème 2
+Brigitte Garnier,brigitte.garnier@example.com,membre;delegue_titulaire,3ème 2
+Albert Durand,albert.durand@example.com,delegue_titulaire,6ème 1;5ème 1
+Henriette Laurent,henriette.laurent@example.com,delegue_titulaire,5ème 3;6ème 2;6ème 1
+Madeleine Morin,madeleine.morin@example.com,delegue_suppleant,6ème 3
+Luc Meyer,luc.meyer@example.com,delegue_suppleant,6ème 1;5ème 3;6ème 4
+François Lambert,françois.lambert@example.com,membre,4ème 4
+Olivier Da Silva,olivier.da silva@example.com,delegue_suppleant,6ème 1
+Raymond Michel,raymond.michel@example.com,membre,3ème 2
+Louis Lefevre,louis.lefevre@example.com,membre,6ème 2
+Jacqueline Lambert,jacqueline.lambert@example.com,delegue_titulaire,4ème 4
+Valérie Morel,valerie.morel@example.com,delegue_suppleant,3ème 4
+Josiane Meunier,josiane.meunier@example.com,delegue_suppleant,6ème 3
+Monique Simon,monique.simon@example.com,delegue_suppleant;delegue_titulaire,3ème 4
+Laurence Garcia,laurence.garcia@example.com,delegue_titulaire;membre,6ème 2
+Paul Michel,paul.michel@example.com,delegue_suppleant,3ème 2
+Véronique André,veronique.andré@example.com,membre,6ème 4
+Berthe Lopez,berthe.lopez@example.com,delegue_suppleant,3ème 1
+Pascal Boyer,pascal.boyer@example.com,membre,4ème 4
+Olivier Nguyen,olivier.nguyen@example.com,delegue_suppleant,3ème 4;3ème 1;4ème 4
+Jeanne Fabre,jeanne.fabre@example.com,delegue_titulaire,5ème 4;3ème 1;5ème 3
+Antoine Marchand,antoine.marchand@example.com,membre,4ème 2
+Michel Gerard,michel.gerard@example.com,membre,5ème 4
+Céline Faure,celine.faure@example.com,membre;delegue_suppleant,3ème 1
+Josiane Giraud,josiane.giraud@example.com,membre,3ème 2
+Bruno Fournier,bruno.fournier@example.com,delegue_titulaire,6ème 3
+Anne François,anne.françois@example.com,delegue_suppleant,4ème 4
+Laurence Garnier,laurence.garnier@example.com,delegue_titulaire,3ème 4
+Pierre André,pierre.andré@example.com,membre,4ème 2
+Bruno Leroux,bruno.leroux@example.com,membre,6ème 2
+Gérard Leroy,gerard.leroy@example.com,membre,6ème 4;4ème 1;5ème 1
+Yves Richard,yves.richard@example.com,delegue_suppleant,3ème 1;5ème 1
+Serge Dubois,serge.dubois@example.com,membre,4ème 2
+Marcel Dubois,marcel.dubois@example.com,delegue_titulaire,5ème 3;6ème 2;5ème 2
+Didier Vincent,didier.vincent@example.com,membre,6ème 3
+Gilbert Picard,gilbert.picard@example.com,membre,5ème 4
+Colette Mathieu,colette.mathieu@example.com,membre,6ème 2;3ème 2;5ème 3
+Didier Nicolas,didier.nicolas@example.com,delegue_suppleant,5ème 3
+Georges Joly,georges.joly@example.com,delegue_suppleant,5ème 4
+André Michel,andre.michel@example.com,delegue_titulaire;delegue_suppleant,5ème 2
+Catherine Renaud,catherine.renaud@example.com,membre,5ème 1
+Victor Nicolas,victor.nicolas@example.com,delegue_titulaire,5ème 3
+Fernand Blanc,fernand.blanc@example.com,delegue_titulaire,3ème 3
+Augustine Leclercq,augustine.leclercq@example.com,membre,3ème 1
+Jacques Petit,jacques.petit@example.com,membre,3ème 2
+Luc Garnier,luc.garnier@example.com,delegue_suppleant,3ème 3
+Denise Masson,denise.masson@example.com,delegue_titulaire,6ème 4;5ème 2
+Philippe Simon,philippe.simon@example.com,membre,3ème 1
+Jacques Marchand,jacques.marchand@example.com,delegue_titulaire,6ème 4
+Yvonne Legrand,yvonne.legrand@example.com,delegue_suppleant;membre,5ème 4
+Pierre Roche,pierre.roche@example.com,delegue_titulaire,3ème 1
+Chantal Nicolas,chantal.nicolas@example.com,delegue_titulaire,5ème 3
+Marie Boyer,marie.boyer@example.com,membre,3ème 3
+Marcelle Legrand,marcelle.legrand@example.com,delegue_suppleant,5ème 3
+Jean Schmitt,jean.schmitt@example.com,membre,5ème 4
+Armand Olivier,armand.olivier@example.com,delegue_titulaire;delegue_suppleant,5ème 2
+Thomas Marie,thomas.marie@example.com,delegue_suppleant,3ème 3
+Pascal Thomas,pascal.thomas@example.com,delegue_suppleant,6ème 1
+Lucien Brun,lucien.brun@example.com,delegue_titulaire,4ème 2
+Didier Muller,didier.muller@example.com,delegue_suppleant,4ème 1
+Agnès Chevalier,agnes.chevalier@example.com,delegue_suppleant,5ème 1
+Claire Noel,claire.noel@example.com,delegue_titulaire,3ème 3
+Yves Robert,yves.robert@example.com,delegue_titulaire,5ème 3
+Jacqueline Henry,jacqueline.henry@example.com,delegue_suppleant,3ème 2
+Jeannine Caron,jeannine.caron@example.com,membre,3ème 4
+Nathalie Perrin,nathalie.perrin@example.com,delegue_suppleant,5ème 2
+Julie Pierre,julie.pierre@example.com,delegue_suppleant;membre,4ème 3
+Cécile Masson,cecile.masson@example.com,membre,5ème 1
+Lucienne Moreau,lucienne.moreau@example.com,membre,5ème 2
+Alphonse Barbier,alphonse.barbier@example.com,delegue_titulaire,4ème 3
+Nicole Thomas,nicole.thomas@example.com,membre,5ème 4
+Nicole Martin,nicole.martin@example.com,delegue_suppleant,6ème 3
+Marcel Dupont,marcel.dupont@example.com,membre,3ème 3
+Marie Blanc,marie.blanc@example.com,delegue_suppleant,4ème 1
+Fernand Picard,fernand.picard@example.com,delegue_titulaire,6ème 4
+Antoine Laurent,antoine.laurent@example.com,membre;delegue_titulaire,3ème 1
+Colette Joly,colette.joly@example.com,membre,6ème 2;5ème 1
+Marie Dumont,marie.dumont@example.com,membre,3ème 4
+Catherine Lucas,catherine.lucas@example.com,membre,3ème 2
+Michèle Lacroix,michele.lacroix@example.com,membre,6ème 1
+Danielle Fournier,danielle.fournier@example.com,membre,6ème 1
+Louis Garnier,louis.garnier@example.com,membre,4ème 3
+Agnès Lambert,agnes.lambert@example.com,delegue_suppleant,6ème 2;3ème 4
+Bruno Arnaud,bruno.arnaud@example.com,delegue_titulaire,5ème 1
+Ernest Bonnet,ernest.bonnet@example.com,delegue_titulaire,5ème 1;5ème 3;5ème 4
+Corinne Olivier,corinne.olivier@example.com,delegue_suppleant,5ème 3
+Christophe Legrand,christophe.legrand@example.com,delegue_titulaire,6ème 3
+Yves Garnier,yves.garnier@example.com,delegue_titulaire,3ème 2
+Émile Martinez,emile.martinez@example.com,membre,4ème 1
+Henri Lopez,henri.lopez@example.com,membre,4ème 4
+René Roger,rene.roger@example.com,delegue_titulaire,3ème 2
+Yvette Picard,yvette.picard@example.com,delegue_suppleant,6ème 3
+Marcel Da Silva,marcel.da silva@example.com,delegue_titulaire,4ème 1
+Raymond Martinez,raymond.martinez@example.com,delegue_suppleant;membre,6ème 4
+Gaston Morin,gaston.morin@example.com,membre,3ème 1
+Albert Gaillard,albert.gaillard@example.com,membre,5ème 2
+Léonie Vincent,leonie.vincent@example.com,delegue_titulaire,4ème 2
+Gilbert Garcia,gilbert.garcia@example.com,delegue_titulaire,5ème 2;6ème 4
+Isabelle Sanchez,isabelle.sanchez@example.com,membre,6ème 2
+Bernard Olivier,bernard.olivier@example.com,membre,4ème 2;5ème 1
+Marthe Michel,marthe.michel2@example.com,delegue_suppleant,3ème 4
+Arthur Perrin,arthur.perrin@example.com,delegue_suppleant,5ème 1
+Denise Moreau,denise.moreau@example.com,delegue_titulaire,6ème 1
+Michèle Leroux,michele.leroux@example.com,delegue_suppleant,3ème 4
+Jeanne Garnier,jeanne.garnier@example.com,membre,3ème 3
+Albert Olivier,albert.olivier@example.com,delegue_suppleant,3ème 2
+Henri Noel,henri.noel@example.com,delegue_suppleant,4ème 1
+Jean Meunier,jean.meunier@example.com,delegue_suppleant,4ème 2
+Léon Fabre,leon.fabre2@example.com,delegue_titulaire,6ème 1
+Isabelle Gaillard,isabelle.gaillard@example.com,delegue_titulaire,3ème 3
+André Faure,andre.faure@example.com,membre,3ème 2;3ème 4
+Josiane Vidal,josiane.vidal@example.com,delegue_titulaire,5ème 1
+Marcelle Perez,marcelle.perez2@example.com,delegue_suppleant,4ème 1
+Robert Muller,robert.muller@example.com,delegue_suppleant,3ème 4
+Daniel Mercier,daniel.mercier@example.com,delegue_suppleant,5ème 3;5ème 2
+Jean Petit,jean.petit@example.com,delegue_titulaire;membre,6ème 1
+Gérard Giraud,gerard.giraud@example.com,delegue_suppleant;membre,4ème 1
+Madeleine Marchand,madeleine.marchand@example.com,membre,6ème 1
+Françoise Meunier,françoise.meunier@example.com,membre,6ème 3
+Antoine Robert,antoine.robert@example.com,membre,3ème 1
+Sophie Simon,sophie.simon@example.com,delegue_titulaire,4ème 2
+Odette Renard,odette.renard@example.com,delegue_titulaire,3ème 1;3ème 4;5ème 3
+Thierry Dupont,thierry.dupont@example.com,membre,6ème 2;3ème 4
+Alphonse Dumont,alphonse.dumont@example.com,membre,5ème 3
+Laurence Leclercq,laurence.leclercq@example.com,delegue_titulaire,4ème 3
+Gérard Barbier,gerard.barbier@example.com,delegue_titulaire,3ème 3
+Bruno Pierre,bruno.pierre@example.com,membre,6ème 1
+Thomas Morel,thomas.morel@example.com,membre,5ème 3
+Juliette David,juliette.david@example.com,delegue_suppleant,5ème 1
+Colette Dufour,colette.dufour@example.com,delegue_titulaire,6ème 3
+Didier Mathieu,didier.mathieu@example.com,delegue_suppleant,3ème 3
+Brigitte Moreau,brigitte.moreau@example.com,delegue_titulaire,3ème 4;5ème 3;4ème 2
+Georges Dumont,georges.dumont@example.com,delegue_suppleant,4ème 1
+Denise Nicolas,denise.nicolas@example.com,membre,6ème 3
+Marie André,marie.andré@example.com,delegue_suppleant,4ème 4
+Thérèse Noel,therese.noel@example.com,membre,5ème 2
+Valérie Roy,valerie.roy@example.com,membre,6ème 1
+Alain Lopez,alain.lopez@example.com,delegue_titulaire,4ème 4
+Denise Jean,denise.jean@example.com,membre,4ème 1
+Cécile Dubois,cecile.dubois@example.com,delegue_titulaire,4ème 4
+Michel Brunet,michel.brunet@example.com,delegue_suppleant,6ème 1
+Cécile Duval,cecile.duval@example.com,delegue_titulaire,4ème 1
+Jacqueline Fontaine,jacqueline.fontaine@example.com,delegue_suppleant,6ème 3
+Catherine Brun,catherine.brun@example.com,delegue_titulaire;membre,5ème 2
+Céline Lemoine,celine.lemoine@example.com,delegue_suppleant;delegue_titulaire,4ème 3
+Léonie Dumont,leonie.dumont@example.com,delegue_suppleant,4ème 1
+Thérèse Sanchez,therese.sanchez@example.com,delegue_suppleant,5ème 3
+Nicole Dupuis,nicole.dupuis@example.com,membre;delegue_titulaire,4ème 4
+Madeleine Henry,madeleine.henry@example.com,delegue_suppleant,6ème 3
+Danielle Mercier,danielle.mercier@example.com,delegue_suppleant,3ème 3
+Madeleine Leclercq,madeleine.leclercq@example.com,membre,6ème 4;6ème 3
+Didier Meunier,didier.meunier@example.com,delegue_suppleant,5ème 2;4ème 1;6ème 2
+Thomas Fernandez,thomas.fernandez@example.com,delegue_titulaire,6ème 2
+Paul Lefevre,paul.lefevre@example.com,membre,4ème 1
+Yvette Perez,yvette.perez@example.com,membre,3ème 3
+Gaston Jean,gaston.jean@example.com,delegue_suppleant,4ème 2
+Christophe David,christophe.david@example.com,delegue_suppleant,3ème 1
+Corinne Simon,corinne.simon@example.com,delegue_suppleant;membre,4ème 3
+Marguerite Durand,marguerite.durand@example.com,membre,6ème 2
+Corinne Pierre,corinne.pierre@example.com,delegue_suppleant,4ème 1
+Jean Lemaire,jean.lemaire@example.com,delegue_suppleant,6ème 3
+Léopold Morel,leopold.morel@example.com,delegue_suppleant,3ème 2
+Didier Chevalier,didier.chevalier@example.com,membre;delegue_titulaire,4ème 4
+Agnès Renaud,agnes.renaud@example.com,delegue_titulaire;delegue_suppleant,3ème 1
+Marthe Durand,marthe.durand@example.com,delegue_suppleant,5ème 1
+Nicolas Mercier,nicolas.mercier@example.com,delegue_titulaire,4ème 2
+Jean André,jean.andré@example.com,membre,5ème 2
+Eugène Blanchard,eugene.blanchard@example.com,delegue_suppleant,4ème 3
+Julie Marchand,julie.marchand@example.com,delegue_titulaire,6ème 1
+Sandrine David,sandrine.david@example.com,delegue_suppleant,6ème 4
+Suzanne Barbier,suzanne.barbier@example.com,membre,5ème 1
+Andrée François,andree.françois@example.com,delegue_titulaire,6ème 4
+Arthur Dumont,arthur.dumont@example.com,delegue_titulaire,6ème 1
+Isabelle Fournier,isabelle.fournier@example.com,delegue_suppleant,4ème 4
+Julie Bonnet,julie.bonnet@example.com,membre,4ème 1
+Brigitte Henry,brigitte.henry@example.com,delegue_suppleant,3ème 3
+Serge Barbier,serge.barbier@example.com,membre,4ème 4
+Bruno Clement,bruno.clement@example.com,delegue_suppleant,3ème 3
+Henriette Lacroix,henriette.lacroix@example.com,delegue_titulaire,6ème 4
+Cécile Roux,cecile.roux@example.com,delegue_suppleant,3ème 1;5ème 2
+Lucien Vincent,lucien.vincent@example.com,membre,5ème 3
+Brigitte Lambert,brigitte.lambert@example.com,delegue_titulaire,6ème 2
+Juliette Garcia,juliette.garcia@example.com,delegue_suppleant,5ème 3
+Marie Garcia,marie.garcia@example.com,delegue_titulaire;membre,5ème 3
+Sandrine Chevalier,sandrine.chevalier@example.com,membre,3ème 3
+Gaston Martin,gaston.martin@example.com,delegue_suppleant,3ème 1;5ème 4;4ème 1
+Lucie Lefevre,lucie.lefevre@example.com,delegue_suppleant,6ème 1
+Albert Durand,albert.durand2@example.com,delegue_suppleant,5ème 2;3ème 2
+Jules Schmitt,jules.schmitt@example.com,delegue_titulaire;membre,4ème 1
+Berthe Durand,berthe.durand@example.com,delegue_suppleant;delegue_titulaire,4ème 2
+Gilbert Noel,gilbert.noel@example.com,delegue_titulaire,5ème 1
+Marguerite Denis,marguerite.denis@example.com,delegue_suppleant,6ème 4
+Véronique Garnier,veronique.garnier@example.com,delegue_suppleant,3ème 1
+Sophie Legrand,sophie.legrand@example.com,delegue_suppleant,4ème 3
+Nathalie Noel,nathalie.noel@example.com,delegue_titulaire,3ème 3;6ème 2;5ème 2
+Colette Dufour,colette.dufour2@example.com,delegue_suppleant;delegue_titulaire,5ème 3
+Jacqueline Blanc,jacqueline.blanc@example.com,membre;delegue_suppleant,6ème 3
+Lucie Girard,lucie.girard@example.com,membre,6ème 1
+Marcelle Gauthier,marcelle.gauthier@example.com,delegue_suppleant,5ème 2
+Nicole Morel,nicole.morel@example.com,delegue_suppleant,6ème 2
+Jeanne Mathieu,jeanne.mathieu@example.com,delegue_suppleant,4ème 4
+René Giraud,rene.giraud@example.com,delegue_titulaire,5ème 2;4ème 2
+Thierry Gerard,thierry.gerard@example.com,delegue_suppleant,5ème 1
+Raoul Bourgeois,raoul.bourgeois@example.com,delegue_titulaire,5ème 1
+Yvette Lacroix,yvette.lacroix@example.com,delegue_suppleant,3ème 2
+Juliette Bonnet,juliette.bonnet@example.com,delegue_suppleant,4ème 3
+Nicolas Schmitt,nicolas.schmitt@example.com,membre,5ème 4
+Marc Simon,marc.simon@example.com,membre,6ème 1
+Raymond Blanc,raymond.blanc@example.com,delegue_titulaire;delegue_suppleant,3ème 4
+Robert Clement,robert.clement@example.com,delegue_suppleant,4ème 2
+Armand Lefevre,armand.lefevre@example.com,membre,5ème 4
+Jean Martinez,jean.martinez@example.com,delegue_titulaire,4ème 1;6ème 1;4ème 3
+Sandrine Barbier,sandrine.barbier@example.com,delegue_suppleant,4ème 2
+Lucien Leclerc,lucien.leclerc@example.com,delegue_suppleant,5ème 1
+François Sanchez,françois.sanchez@example.com,membre;delegue_suppleant,4ème 2
+Pierre Lemaire,pierre.lemaire@example.com,membre,4ème 1
+Jeannine Dupuis,jeannine.dupuis2@example.com,membre;delegue_suppleant,4ème 1
+Nicole Clement,nicole.clement@example.com,membre,4ème 2
+Germaine Bernard,germaine.bernard@example.com,delegue_titulaire,5ème 4
+Christophe Dupont,christophe.dupont@example.com,delegue_suppleant,3ème 1
+Raymond Renaud,raymond.renaud@example.com,delegue_suppleant,6ème 1
+Claire Denis,claire.denis@example.com,membre,4ème 3
+Yves Lefebvre,yves.lefebvre@example.com,delegue_suppleant,3ème 2
+Renée Bertrand,renee.bertrand@example.com,membre,6ème 2
+Marguerite Laurent,marguerite.laurent@example.com,membre,5ème 2
+Cécile André,cecile.andré@example.com,membre,4ème 2
+Anne Richard,anne.richard@example.com,delegue_suppleant,6ème 3
+Claire Leroux,claire.leroux@example.com,delegue_titulaire,5ème 3;6ème 1;3ème 1
+Christine Marchand,christine.marchand@example.com,membre,5ème 1
+Raymond Meunier,raymond.meunier@example.com,delegue_suppleant,5ème 4
+Raymond Durand,raymond.durand@example.com,delegue_suppleant,5ème 4
+Paulette Simon,paulette.simon@example.com,membre,4ème 1
+François Gerard,françois.gerard@example.com,delegue_suppleant,5ème 4
+Maurice Lambert,maurice.lambert@example.com,membre,5ème 1
+Marc Roche,marc.roche@example.com,delegue_titulaire,6ème 1
+Suzanne Da Silva,suzanne.da silva@example.com,delegue_suppleant,6ème 4
+Pascal Fabre,pascal.fabre@example.com,delegue_suppleant,6ème 1
+Marthe Richard,marthe.richard@example.com,delegue_titulaire,5ème 4
+Gaston Renaud,gaston.renaud@example.com,delegue_titulaire,5ème 2
+Thierry Legrand,thierry.legrand@example.com,delegue_suppleant,4ème 1
+Alphonse Dubois,alphonse.dubois@example.com,delegue_titulaire,5ème 4
+Josiane Garnier,josiane.garnier@example.com,delegue_suppleant,4ème 4
+Catherine Richard,catherine.richard@example.com,membre,3ème 3
+Colette Pierre,colette.pierre@example.com,membre,4ème 2
+Stéphane Morel,stephane.morel@example.com,delegue_titulaire,4ème 4
+Dominique Lucas,dominique.lucas@example.com,membre,4ème 3
+Thierry Philippe,thierry.philippe@example.com,membre,5ème 3
+Hélène Guerin,helene.guerin@example.com,delegue_titulaire,5ème 1
+Yvonne Martin,yvonne.martin@example.com,membre,4ème 1
+Ernest Fernandez,ernest.fernandez@example.com,delegue_titulaire,5ème 1
+Paulette Pierre,paulette.pierre@example.com,delegue_suppleant,6ème 2
+Marthe Robin,marthe.robin@example.com,delegue_titulaire,4ème 4
+Françoise Fabre,françoise.fabre@example.com,delegue_titulaire,3ème 4
+Thomas Bonnet,thomas.bonnet@example.com,delegue_titulaire,3ème 3
+Marthe Pierre,marthe.pierre@example.com,membre;delegue_titulaire,3ème 1
+Laurence Jean,laurence.jean@example.com,membre,6ème 3
+Chantal Roux,chantal.roux@example.com,delegue_titulaire,6ème 4
+Jacques Robin,jacques.robin@example.com,membre,6ème 2
+Marcelle Colin,marcelle.colin@example.com,delegue_suppleant,3ème 3
+Nicole Robin,nicole.robin@example.com,delegue_titulaire,6ème 4
+Thierry Thomas,thierry.thomas@example.com,delegue_titulaire;delegue_suppleant,3ème 4
+Denise Dubois,denise.dubois@example.com,membre,6ème 2;4ème 1
+Robert Lucas,robert.lucas@example.com,delegue_suppleant,3ème 3
+Gaston Gautier,gaston.gautier@example.com,delegue_suppleant;membre,4ème 2
+Yvonne Petit,yvonne.petit@example.com,membre,6ème 1
+Thomas Nicolas,thomas.nicolas@example.com,delegue_suppleant,4ème 3
+Lucie Lemaire,lucie.lemaire@example.com,delegue_suppleant,5ème 1
+Josiane Dufour,josiane.dufour@example.com,delegue_titulaire,6ème 3
+Gilbert Lefebvre,gilbert.lefebvre@example.com,delegue_suppleant,4ème 3
+Robert Mercier,robert.mercier@example.com,delegue_suppleant;membre,4ème 4
+Eugène Colin,eugene.colin@example.com,delegue_titulaire,3ème 4
+Lucie Fernandez,lucie.fernandez@example.com,delegue_titulaire,4ème 3
+Andrée Fernandez,andree.fernandez@example.com,membre,5ème 2
+Véronique Marie,veronique.marie@example.com,delegue_titulaire,3ème 4
+Luc Muller,luc.muller@example.com,delegue_titulaire;membre,4ème 3
+Anne Lemoine,anne.lemoine@example.com,membre,4ème 4
+Gilbert Rolland,gilbert.rolland@example.com,membre,3ème 4
+Lucienne Leroux,lucienne.leroux@example.com,delegue_titulaire,4ème 1
+Agnès Masson,agnes.masson@example.com,delegue_suppleant,4ème 4
+Colette Dubois,colette.dubois@example.com,delegue_suppleant;membre,3ème 1
+Martine Barbier,martine.barbier@example.com,delegue_titulaire,5ème 4
+Jacques Marie,jacques.marie@example.com,membre,4ème 4
+Fernand Perrin,fernand.perrin@example.com,delegue_titulaire,6ème 3
+Martine Da Silva,martine.da silva@example.com,delegue_titulaire,4ème 1
+Céline Arnaud,celine.arnaud@example.com,delegue_titulaire,6ème 2
+Luc Roger,luc.roger@example.com,membre,3ème 4;4ème 3

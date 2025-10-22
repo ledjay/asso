@@ -10,8 +10,11 @@
 AssociationHub is a member management and email communication platform for associations. MVP delivers:
 - Single-tenant self-hosted version (open-source, MIT license)
 - NextAuth authentication with template selection on first login
-- Member CRUD with CSV import/export
+- Member CRUD with **many-to-many roles and groups** (junction tables from day one)
+- **Hierarchical group structures** with parent-child relationships (3 levels max)
+- CSV import/export with support for multiple roles/groups per member
 - Email composition with template tags ({Nom}, {Role}, {Group})
+- Email filtering with **"Include child groups"** option
 - Single PDF attachment support
 - Synchronous SMTP email sending
 - Simple email history tracking
@@ -81,10 +84,13 @@ AssociationHub is a member management and email communication platform for assoc
 ### III. Database-First Design ✅
 - **Status**: PASS
 - **Evidence**:
-  - Prisma schema defines all entities (User, Member, EmailCampaign, Role, GroupType)
+  - Prisma schema defines all entities (User, Member, EmailCampaign, Role, GroupType, **MemberRole**, **MemberGroup**)
+  - **Many-to-many relationships**: Member ↔ Roles via MemberRole junction, Member ↔ Groups via MemberGroup junction
+  - **Hierarchical groups**: GroupType has self-referential parentId field (3 levels max)
   - Migrations required for all schema changes
-  - Seed data for 3 templates (parents, sports, cultural)
+  - Seed data for 3 templates with hierarchical group structures
   - Transactions for CSV import (atomicity)
+  - **Circular reference validation** for group hierarchy
   - Hard delete for MVP (soft delete deferred to post-MVP)
 
 ### IV. Component-Driven UI ✅

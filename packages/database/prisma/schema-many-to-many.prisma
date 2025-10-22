@@ -1,7 +1,6 @@
-// Prisma schema for AssociationHub MVP
+// Prisma schema for AssociationHub MVP - Many-to-Many Version
 // Single-tenant architecture (one association per deployment)
-// Many-to-many relationships: Members can have multiple roles and groups
-// Hierarchical groups: Groups can have parent-child relationships (3 levels max)
+// Members can have multiple roles and belong to multiple groups
 
 generator client {
   provider = "prisma-client-js"
@@ -67,11 +66,11 @@ model Member {
 
 // Junction table for Member-Role many-to-many relationship
 model MemberRole {
-  id         String   @id @default(cuid())
-  memberId   String
-  roleId     String
-  member     Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  role       Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  id       String   @id @default(cuid())
+  memberId String
+  roleId   String
+  member   Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  role     Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
   assignedAt DateTime @default(now())
 
   @@unique([memberId, roleId]) // Prevent duplicate role assignments

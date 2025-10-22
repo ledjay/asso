@@ -21,6 +21,7 @@ interface ImportMembersDialogProps {
 export function ImportMembersDialog({ open, onOpenChange }: ImportMembersDialogProps) {
   const router = useRouter();
   const t = useTranslations('members');
+  const tCommon = useTranslations('common');
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
@@ -77,7 +78,12 @@ export function ImportMembersDialog({ open, onOpenChange }: ImportMembersDialogP
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Erreur lors de l\'import');
+        console.error('Import failed:', data);
+        let errorMessage = data.error || t('importError');
+        if (data.details && data.details.length > 0) {
+          errorMessage += '\n' + data.details.slice(0, 5).join('\n');
+        }
+        throw new Error(errorMessage);
       }
 
       toast.success(t('importSuccess', { count: data.imported }));
@@ -95,8 +101,11 @@ export function ImportMembersDialog({ open, onOpenChange }: ImportMembersDialogP
   };
 
   const downloadExample = () => {
-    const csvContent = 'nom,email,role,groupe\nJean Dupont,jean@example.com,delegue_titulaire,6e1\nMarie Martin,marie@example.com,membre,5e2';
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const csvContent = `nom,email,role,groupe
+Jean Dupont,jean@example.com,delegue_titulaire,6ème 1
+Marie Martin,marie@example.com,membre,5ème 2
+Pierre Durand,pierre@example.com,delegue_titulaire;membre,6ème 1;6ème 2`;
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -219,7 +228,7 @@ export function ImportMembersDialog({ open, onOpenChange }: ImportMembersDialogP
               onClick={() => onOpenChange(false)}
               disabled={isUploading}
             >
-              Annuler
+              {tCommon('cancel')}
             </Button>
             <Button
               onClick={handleUpload}

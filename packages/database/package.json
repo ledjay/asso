@@ -5,7 +5,9 @@
   "exports": {
     "./client": "./src/client.ts",
     "./queries/*": "./src/queries/*.ts",
-    "./import": "./src/import.ts"
+    "./import": "./src/import.ts",
+    "./group-hierarchy": "./src/group-hierarchy.ts",
+    "./encryption": "./src/encryption.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

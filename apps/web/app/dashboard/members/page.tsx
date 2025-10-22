@@ -19,11 +19,19 @@ export default async function MembersPage() {
     redirect('/template-selection');
   }
 
-  // Fetch members with their roles and groups
+  // Fetch members with their roles and groups (many-to-many)
   const members = await prisma.member.findMany({
     include: {
-      role: true,
-      group: true,
+      roles: {
+        include: {
+          role: true,
+        },
+      },
+      groups: {
+        include: {
+          group: true,
+        },
+      },
     },
     orderBy: {
       createdAt: 'desc',
